@@ -1,9 +1,1 @@
-#AI STUDENT
-
-###Education
-UNIVERSITA' DEGLI STUDI DI BARI ALDO MORO LAUREA IN INFORMATICA E TECNOLOGIE PER IL SOFTWARE
-UNIVERSTIA' DEGLI STUDI DI BARI ALDO MORO LAUREA IN COMPUTER SCIENCE
-
-###Work Experience
-COMING SOON
-
+Sono uno studente di Computer Science specializzato in Artificial Intelligence. Con passione per l'apprendimento continuo e per l'innovazione tecnologica, cerco di creare soluzioni intelligenti che risolvano problemi reali. Attualmente, esploro campi come il Machine Learning, il Deep Learning e l'analisi dei dati.
