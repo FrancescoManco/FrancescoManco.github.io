@@ -7,86 +7,85 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-
 <style>
-    /* Common Styling */
-    body, html {
-      scroll-behavior: smooth;
-      padding-top: 56px;
-    }
-    .text-center h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-    .btn-primary:hover, .btn-secondary:hover {
-      transform: scale(1.05);
-    }
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    /* About Section */
-    .about-section {
-      text-align: center;
-      padding: 50px 0;
-    }
-    .about-section img {
-      width: 300px; /* Increase the width */
-      height: auto; /* Keeps the aspect ratio */
-      border-radius: 50%; /* Keeps the image round */
-      margin-bottom: 20px;
-    }
+  /* Common Styling */
+  body, html {
+    scroll-behavior: smooth;
+    padding-top: 56px;
+  }
+  .text-center h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  .btn-primary:hover, .btn-secondary:hover {
+    transform: scale(1.05);
+  }
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
   
-    /* Projects Section */
-    .projects-section {
-      background-color: #f8f9fa;
+  /* About Section */
+  .about-section {
+    text-align: center;
+    padding: 50px 0;
+  }
+  .about-section img {
+    width: 300px; /* Increase the width */
+    height: auto; /* Keeps the aspect ratio */
+    border-radius: 50%; /* Keeps the image round */
+    margin-bottom: 20px;
+  }
+
+  /* Projects Section */
+  .projects-section {
+    background-color: #f8f9fa;
+  }
+  .card {
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  /* Skills Section */
+  .skills-section .card {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  /* Contact Section */
+  .contact-section a {
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+
+  /* Sticky Navbar */
+  .navbar {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  .navbar-nav .nav-link:hover {
+    color: #f8f9fa;
+  }
+
+  /* Footer Section */
+  footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+  }
+
+  /* Media Queries */
+  @media (max-width: 992px) {
+    .navbar-collapse {
+      background-color: #343a40;
     }
-    .card {
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-  
-    /* Skills Section */
-    .skills-section .card {
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-  
-    /* Contact Section */
-    .contact-section a {
-      color: #fff;
-      text-decoration: none;
-      margin-bottom: 10px;
-    }
-  
-    /* Sticky Navbar */
-    .navbar {
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    .navbar-nav .nav-link:hover {
-      color: #f8f9fa;
-    }
-  
-    /* Footer Section */
-    footer {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-      margin-top: 20px;
-    }
-  
-    /* Media Queries */
-    @media (max-width: 992px) {
-      .navbar-collapse {
-        background-color: #343a40;
-      }
-    }
-  </style>
+  }
+</style>
 
 </head>
 <body>
@@ -392,24 +391,24 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.5/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
-    // Smooth scroll reveal effect for fade-in sections
-    $(document).ready(function () {
-    // Trigger fade-in elements on scroll or on initial load
-    function revealOnScroll() {
-      $('.fade-in').each(function () {
-        const elemPos = $(this).offset().top;
-        const topOfWindow = $(window).scrollTop();
-        if (elemPos < topOfWindow + $(window).height() - 100) {
-          $(this).addClass('visible');
-        }
-      });
-    }
-  
-    revealOnScroll(); // Trigger on page load
-    $(window).on('scroll', revealOnScroll); // Trigger on scroll
-  });
-  </script>
+  // Smooth scroll reveal effect for fade-in sections
+  $(document).ready(function () {
+  // Trigger fade-in elements on scroll or on initial load
+  function revealOnScroll() {
+    $('.fade-in').each(function () {
+      const elemPos = $(this).offset().top;
+      const topOfWindow = $(window).scrollTop();
+      if (elemPos < topOfWindow + $(window).height() - 100) {
+        $(this).addClass('visible');
+      }
+    });
+  }
+
+  revealOnScroll(); // Trigger on page load
+  $(window).on('scroll', revealOnScroll); // Trigger on scroll
+});
+</script>
+
 </body>
 </html>
