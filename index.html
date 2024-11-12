@@ -394,52 +394,22 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
-// Initialize AOS
-AOS.init({
-  duration: 800,
-  once: true
-});
-
-// Add loading animation
-window.addEventListener('load', () => {
-  const loader = document.querySelector('.loading-animation');
-  if (loader) {
-    loader.style.opacity = '0';
-    setTimeout(() => loader.remove(), 500);
-  }
-});
-
-// Smooth scroll with offset for fixed header
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    const headerOffset = 70;
-    const elementPosition = target.offsetTop;
-    const offsetPosition = elementPosition - headerOffset;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
-  });
-});
-
-// Dynamic skill progress animation
-const observeProgress = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const progressBar = entry.target.querySelector('.progress-bar');
-      const targetWidth = progressBar.getAttribute('data-width');
-      progressBar.style.width = targetWidth + '%';
+    // Smooth scroll reveal effect for fade-in sections
+    $(document).ready(function () {
+    // Trigger fade-in elements on scroll or on initial load
+    function revealOnScroll() {
+      $('.fade-in').each(function () {
+        const elemPos = $(this).offset().top;
+        const topOfWindow = $(window).scrollTop();
+        if (elemPos < topOfWindow + $(window).height() - 100) {
+          $(this).addClass('visible');
+        }
+      });
     }
+  
+    revealOnScroll(); // Trigger on page load
+    $(window).on('scroll', revealOnScroll); // Trigger on scroll
   });
-}, { threshold: 0.5 });
-
-document.querySelectorAll('.skill-card').forEach(card => {
-  observeProgress.observe(card);
-});
-</script>
-
+  </script>
 </body>
 </html>
