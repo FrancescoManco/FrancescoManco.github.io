@@ -394,16 +394,20 @@
 <script>
   // Smooth scroll reveal effect for fade-in sections
   $(document).ready(function () {
-    $(window).on('scroll', function () {
-      $('.fade-in').each(function () {
-        const elemPos = $(this).offset().top;
-        const topOfWindow = $(window).scrollTop();
-        if (elemPos < topOfWindow + $(window).height() - 100) {
-          $(this).addClass('visible');
-        }
-      });
+  // Trigger fade-in elements on scroll or on initial load
+  function revealOnScroll() {
+    $('.fade-in').each(function () {
+      const elemPos = $(this).offset().top;
+      const topOfWindow = $(window).scrollTop();
+      if (elemPos < topOfWindow + $(window).height() - 100) {
+        $(this).addClass('visible');
+      }
     });
-  });
+  }
+
+  revealOnScroll(); // Trigger on page load
+  $(window).on('scroll', revealOnScroll); // Trigger on scroll
+});
 </script>
 
 </body>
