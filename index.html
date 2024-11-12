@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio | About</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<style>
+  /* Common Styling */
+  body, html {
+    scroll-behavior: smooth;
+    padding-top: 56px;
+  }
+  .text-center h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  .btn-primary:hover, .btn-secondary:hover {
+    transform: scale(1.05);
+  }
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* About Section */
+  .about-section {
+    text-align: center;
+    padding: 50px 0;
+  }
+  .about-section img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+  }
+
+  /* Projects Section */
+  .projects-section {
+    background-color: #f8f9fa;
+  }
+  .card {
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  /* Skills Section */
+  .skills-section .card {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  /* Contact Section */
+  .contact-section a {
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+
+  /* Sticky Navbar */
+  .navbar {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  .navbar-nav .nav-link:hover {
+    color: #f8f9fa;
+  }
+
+  /* Footer Section */
+  footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+  }
+
+  /* Media Queries */
+  @media (max-width: 992px) {
+    .navbar-collapse {
+      background-color: #343a40;
+    }
+  }
+</style>
+
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#home">Portfolio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- About Section -->
+<section id="about" class="about-section fade-in">
+  <div class="container">
+    <h2>About</h2>
+    <img src="images/about/1.jpg" alt="Portrait of [Your Name]">
+    <p>A brief introduction about your background and experience in data science, machine learning, or other fields.</p>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="projects-section fade-in">
+  <div class="container">
+    <h2 class="text-center">Projects</h2>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="images/projects/1.jpg" class="card-img-top" alt="Project 1 Thumbnail">
+          <div class="card-body">
+            <h5 class="card-title">Project 1</h5>
+            <p class="card-text">Brief project description, tools used, and other details.</p>
+            <a href="#" class="btn btn-primary">Blog Post</a>
+            <a href="#" class="btn btn-secondary">Source Code</a>
+          </div>
+        </div>
+      </div>
+      <!-- Additional projects -->
+    </div>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="skills-section bg-white fade-in">
+  <div class="container">
+    <h2 class="text-center">Skills</h2>
+    <div class="row">
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <img src="images/skills/1.png" class="card-img-top" alt="Python Skill Icon">
+          <div class="card-body">
+            <h5 class="card-title">Python</h5>
+            <p class="card-text">Brief description of skills in Python.</p>
+            <a href="#" class="btn btn-outline-primary">Link to course</a>
+          </div>
+        </div>
+      </div>
+      <!-- Additional skills -->
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section text-white bg-dark text-center fade-in">
+  <div class="container">
+    <h2>Contact Me</h2>
+    <p><i class="fas fa-envelope"></i> loremipsum@gmail.com</p>
+    <p><i class="fas fa-phone"></i> 415xxxxxxx</p>
+    <div class="d-flex justify-content-center">
+      <a href="#" class="social-icon mx-3"><i class="fab fa-linkedin"></i></a>
+      <a href="#" class="social-icon mx-3"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="social-icon mx-3"><i class="fab fa-github"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2024 [Your Name]</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.5/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  // Smooth scroll reveal effect for fade-in sections
+  $(document).ready(function () {
+    $(window).on('scroll', function () {
+      $('.fade-in').each(function () {
+        const elemPos = $(this).offset().top;
+        const topOfWindow = $(window).scrollTop();
+        if (elemPos < topOfWindow + $(window).height() - 100) {
+          $(this).addClass('visible');
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
