@@ -150,6 +150,60 @@
         background: rgba(42, 42, 114, 0.03);
         border-radius: 8px;
     }
+
+    /* Contact Section */
+.contact-section {
+    background: var(--primary-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-section::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 150px;
+    height: 150px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+}
+
+.contact-section::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    right: -30px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+}
+
+.contact-social {
+    color: white;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+}
+
+.contact-social:hover {
+    transform: translateY(-5px);
+    background: var(--secondary-color);
+    color: white;
+}
+
+.contact-item a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+    color: var(--secondary-color);
+}
     </style>
 </head>
 <body>
@@ -385,6 +439,42 @@
                     <div class="skill-item">CI/CD</div>
                     <div class="skill-item">MLflow</div>
                     
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section py-5 bg-dark text-white">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Get in Touch</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <div class="contact-info">
+                    <div class="contact-item mb-4">
+                        <a href="mailto:francescomanco.2001@gmail.com" class="text-white">
+                            <i class="fas fa-envelope fa-2x mb-3"></i>
+                            <h4>Email</h4>
+                            <p>francescomanco.2001@gmail.com</p>
+                        </a>
+                    </div>
+                    
+                    <div class="contact-links d-flex justify-content-center gap-4">
+                        <a href="https://linkedin.com/in/francesco-manco-0b303518a" 
+                           target="_blank" 
+                           class="contact-social">
+                            <i class="fab fa-linkedin fa-2x"></i>
+                            <span class="d-block mt-2">LinkedIn</span>
+                        </a>
+                        
+                        <a href="https://github.com/FrancescoManco" 
+                           target="_blank" 
+                           class="contact-social">
+                            <i class="fab fa-github-square fa-2x"></i>
+                            <span class="d-block mt-2">GitHub</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
