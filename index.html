@@ -1,501 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Francesco Manco |Portfolio</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Engineer | Master's in Computer Science | Computer Vision & Generative AI Specialist">
+    <title>Francesco Manco | AI Engineering Portfolio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2A2A72;
+            --secondary-color: #009FFD;
+            --accent-color: #FF3C00;
+        }
 
-<style>
-  /* Common Styling */
-  body, html {
-    scroll-behavior: smooth;
-    padding-top: 56px;
-  }
-  .text-center h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-  }
-  .btn-primary:hover, .btn-secondary:hover {
-    transform: scale(1.05);
-  }
-  .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* About Section */
-  .about-section {
-    text-align: center;
-    padding: 50px 0;
-  }
-  .about-section img {
-    width: 300px; /* Increase the width */
-    height: auto; /* Keeps the aspect ratio */
-    border-radius: 50%; /* Keeps the image round */
-    margin-bottom: 20px;
-  }
+        body {
+            scroll-behavior: smooth;
+            padding-top: 70px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
 
-  /* Projects Section */
-  .projects-section {
-    background-color: #f8f9fa;
-  }
-  .card {
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 120px 0 80px;
+        }
 
-  /* Skills Section */
-  .skills-section .card {
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
 
-  /* Contact Section */
-  .contact-section a {
-    color: #fff;
-    text-decoration: none;
-    margin-bottom: 10px;
-  }
+        .hero .lead {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
 
-  /* Sticky Navbar */
-  .navbar {
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  }
-  .navbar-nav .nav-link:hover {
-    color: #f8f9fa;
-  }
+        /* Section Titles */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            position: relative;
+            color: var(--primary-color);
+        }
 
-  /* Footer Section */
-  footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    margin-top: 20px;
-  }
+        /* Project Cards */
+        .project-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            margin-bottom: 30px;
+        }
 
-  /* Media Queries */
-  @media (max-width: 992px) {
-    .navbar-collapse {
-      background-color: #343a40;
-    }
-  }
-</style>
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
 
+        .tech-badge {
+            background: var(--secondary-color);
+            color: white;
+            margin: 2px;
+        }
+
+        /* Skills Matrix */
+        .skill-category {
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .skill-item {
+            padding: 8px 15px;
+            margin: 5px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        /* Timeline */
+        .timeline {
+            border-left: 3px solid var(--secondary-color);
+            padding-left: 30px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="#about">Francesco Manco</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-      
-        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-      </ul>
+<!-- Hero Section -->
+<section class="hero text-center">
+    <div class="container">
+        <h1 class="animate">Transforming Ideas with AI Solutions</h1>
+        <p class="lead animate">MSc Computer Science Graduate Specializing in Machine Learning & Deep Learning</p>
+        <a href="#projects" class="btn btn-lg btn-light mx-2">View Projects</a>
+        <a href="#contact" class="btn btn-lg btn-outline-light mx-2">Contact Me</a>
     </div>
-  </div>
-</nav>
+</section>
 
 <!-- About Section -->
-<section id="about" class="about-section fade-in">
-  <div class="container">
-   
-    <img src="images/1645642649696.jpeg" alt="Portrait of Francesco Manco">
-    <p>As an aspiring AI Engineer currently pursuing a Master's degree in Computer Science for Artificial Intelligence at the University of Bari Aldo Moro, I combine strong academic foundations with a passionate drive for innovation in AI technologies. Building upon my Bachelor's degree in Computer Science and Software Technologies, I focus particularly on Computer Vision and Natural Language Processing, areas where I see immense potential for transformative applications.
-        My academic journey has equipped me with comprehensive knowledge of AI fundamentals, while my enthusiasm for emerging technologies keeps me at the forefront of developments in the field. I am committed to leveraging this expertise to develop innovative AI solutions that address real-world challenges.</p>
-  </div>
+<section id="about" class="py-5">
+    <div class="container">
+        <h2 class="section-title text-center">About Me</h2>
+        <div class="row align-items-center">
+            <div class="col-md-4 text-center mb-4">
+                <img src="images/1645642649696.jpeg" alt="Francesco Manco" 
+                     class="img-fluid rounded-circle shadow-lg" style="max-width: 250px;">
+            </div>
+            <div class="col-md-8">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Bachelor's Degree in Computer Science and Software Production Technologies </h4>
+                        <p class="text-muted">University of Bari Aldo Moro  | 2020 - 2023</p>
+                        <ul>
+                            <li>Thesis: Definizione di un processo strutturato per la face detection</li>
+                            <li>Vote: 110/110 e Lode</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>MSc Computer Science - AI Specialization</h4>
+                        <p class="text-muted">University of Bari Aldo Moro  | 2023 - 2023</p>
+                        <ul>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="Manco_Francesco_CV.pdf" download class="btn btn-primary mt-3">
+                    <i class="fas fa-download mr-2"></i>Download CV
+                </a>
+            </div>
+        </div>
+    </div>
 </section>
-
-
 
 <!-- Projects Section -->
-<section id="projects" class="projects-section fade-in">
+<section id="projects" class="projects-section py-5">
   <div class="container">
-    <h2 class="text-center">Projects</h2>
+    <h2 class="section-title text-center mb-5">Projects</h2>
     <div class="row">
+
+      <!-- Project 1: Employee Productivity Prediction -->
       <div class="col-md-4 mb-4">
-        <div class="card">
-          
+        <div class="card project-card h-100">
           <div class="card-body">
             <h5 class="card-title">Employee Productivity Prediction</h5>
-            <p class="card-text">The project utilizes a dataset from the UCI Machine Learning Repository to classify productivity into two categories: Low Productivity and High Productivity</p>
-            
-            <a href="https://github.com/FrancescoManco/Employee-Productivity-Prediction.git" class="btn btn-secondary">Source Code</a>
-          </div>
-        </div>
-      </div>
-      <!-- Additional projects -->
-
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          
-          <div class="card-body">
-            <h5 class="card-title">Breast Cancer Wisconsin Diagnostic </h5>
-            <p class="card-text">The project uses statistical and machine learning techniques to analyze cancer-related datasets. Through feature selection, preprocessing, and model training, the project builds a classifier to predict the type of cancer based on input features. This project is a demonstration of how data science can be applied in healthcare to assist in early detection.</p>
-            
-            <a href="https://github.com/FrancescoManco/Breast-Cancer-Wisconsin--Diagnostic-.git" class="btn btn-secondary">Source Code</a>
+            <div class="mb-3">
+              <span class="tech-badge badge">Machine Learning</span>
+              <span class="tech-badge badge">Python</span>
+              <span class="tech-badge badge">Scikit-learn</span>
+            </div>
+            <p class="card-text">Utilized a dataset from the UCI Machine Learning Repository to classify productivity into two categories: Low and High Productivity.</p>
+            <a href="https://github.com/FrancescoManco/Employee-Productivity-Prediction.git" class="btn btn-primary">
+              <i class="fas fa-code mr-2"></i>Source Code
+            </a>
           </div>
         </div>
       </div>
 
+      <!-- Project 2: Breast Cancer Wisconsin Diagnostic -->
       <div class="col-md-4 mb-4">
-        <div class="card">
-          
+        <div class="card project-card h-100">
           <div class="card-body">
-            <h5 class="card-title">Image Difference Captioning </h5>
-            <p class="card-text">Applying the concept of Image Difference Captioning (IDC) to the artistic context: The project aims to develop a tool to automatically describe the differences between two works of art. Utility for art critics and conservation of artworks: The difference analysis can support the work of critics and assist in cataloging artworks.</p>
-            
-            <a href="https://github.com/FrancescoManco/Image-Difference-Captioning" class="btn btn-secondary">Source Code</a>
+            <h5 class="card-title">Breast Cancer Wisconsin Diagnostic</h5>
+            <div class="mb-3">
+              <span class="tech-badge badge">Data Science</span>
+              <span class="tech-badge badge">Healthcare</span>
+              <span class="tech-badge badge">Pandas</span>
+            </div>
+            <p class="card-text">Developed a classifier using statistical and ML techniques to predict cancer types, demonstrating the application of data science in healthcare.</p>
+            <a href="https://github.com/FrancescoManco/Breast-Cancer-Wisconsin--Diagnostic-.git" class="btn btn-primary">
+              <i class="fas fa-code mr-2"></i>Source Code
+            </a>
           </div>
         </div>
-      </div>  
-    </div>
-    <div class="row">
+      </div>
+
+      <!-- Project 3: Image Difference Captioning -->
       <div class="col-md-4 mb-4">
-        <div class="card">
-          
+        <div class="card project-card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Image Difference Captioning</h5>
+            <div class="mb-3">
+              <span class="tech-badge badge">Computer Vision</span>
+              <span class="tech-badge badge">NLP</span>
+              <span class="tech-badge badge">OpenCV</span>
+            </div>
+            <p class="card-text">Developed a tool to automatically describe differences between artworks, supporting art critics and cataloging.</p>
+            <a href="https://github.com/FrancescoManco/Image-Difference-Captioning" class="btn btn-primary">
+              <i class="fas fa-code mr-2"></i>Source Code
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4: JARVIS -->
+      <div class="col-md-4 mb-4">
+        <div class="card project-card h-100">
           <div class="card-body">
             <h5 class="card-title">JARVIS</h5>
-            <p class="card-text">JARVIS is an advanced digital agent project based on LLMs (Large Language Models) with a strong focus on adaptive personalization. The goal is to create a system that continuously learns from user input and feedback, improving interaction quality and offering a tailored experience. Through memory modules and fine-tuning techniques, the agent can adapt in real time to the user's preferences and style.</p>
-            
-            <a class="btn btn-secondary">Source Code not available</a>
+            <div class="mb-3">
+              <span class="tech-badge badge">LLMs</span>
+              <span class="tech-badge badge">AI Agents</span>
+              <span class="tech-badge badge">Personalization</span>
+            </div>
+            <p class="card-text">An advanced digital agent based on LLMs, focusing on adaptive personalization through memory modules and fine-tuning.</p>
+            <a class="btn btn-secondary disabled">
+              <i class="fas fa-lock mr-2"></i>Source Code not available
+            </a>
           </div>
         </div>
-      </div> 
+      </div>
 
-
-      
+      <!-- Project 5: Microbiome Data Analysis -->
       <div class="col-md-4 mb-4">
-        <div class="card">
-          
+        <div class="card project-card h-100">
           <div class="card-body">
-            <h5 class="card-title">Facing the Challenges of Microbiome Data through Supervised
-              Autoencoders for the Non-invasive Disease Diagnosis with Transfer Learning techniques </h5>
-            <p class="card-text"> This work proposes a novel framework that
-              exploits machine learning techniques to analyze gut microbial profiles, hypothesizing a correlation be
-             tween specific microbial compositions and the presence of ASD. The clinical goal is to reduce diagnostic
-              time and identify biomarkers potential that can support early diagnosis and targeted interventions.</p>
-            
-            <a href="https://github.com/FrancescoManco/Microbioma_Manco_Francesco" class="btn btn-secondary">Source Code</a>
+            <h5 class="card-title">Microbiome Data Analysis</h5>
+            <div class="mb-3">
+              <span class="tech-badge badge">Autoencoders</span>
+              <span class="tech-badge badge">Transfer Learning</span>
+              <span class="tech-badge badge">Healthcare</span>
+            </div>
+            <p class="card-text">Proposed a novel framework to analyze gut microbial profiles, aiming to reduce diagnostic time and identify biomarkers.</p>
+            <a href="https://github.com/FrancescoManco/Microbioma_Manco_Francesco" class="btn btn-primary">
+              <i class="fas fa-code mr-2"></i>Source Code
+            </a>
           </div>
         </div>
-      </div> 
+      </div>
 
+      <!-- Project 6: Quantum Metric Learning -->
       <div class="col-md-4 mb-4">
-        <div class="card">
-          
+        <div class="card project-card h-100">
           <div class="card-body">
-            <h5 class="card-title">Quantum Metric Learning for Clustering task </h5>
-            <p class="card-text"> This project explores a hybrid quantum-classical architecture for embedding generation and clustering, leveraging Quantum Triplet Loss and KMeans. The model integrates classical CNNs, quantum circuits, and a triplet loss framework to extract and refine image embeddings. The pipeline is tested on the MNIST dataset (digits 0-9) to evaluate clustering.</p>
-            
-            <a href="https://github.com/FrancescoManco/QuantumMetricLearning" class="btn btn-secondary">Source Code</a>
+            <h5 class="card-title">Quantum Metric Learning</h5>
+            <div class="mb-3">
+              <span class="tech-badge badge">Quantum Computing</span>
+              <span class="tech-badge badge">PyTorch</span>
+              <span class="tech-badge badge">Clustering</span>
+            </div>
+            <p class="card-text">Explored a hybrid quantum-classical architecture for embedding generation and clustering, tested on MNIST dataset.</p>
+            <a href="https://github.com/FrancescoManco/QuantumMetricLearning" class="btn btn-primary">
+              <i class="fas fa-code mr-2"></i>Source Code
+            </a>
           </div>
         </div>
-      </div> 
-      <!-- Other projects-->
+      </div>
+
     </div>
   </div>
 </section>
-
 <!-- Skills Section -->
-<section id="skills" class="skills-section bg-white fade-in py-5">
+<section id="skills" class="py-5 bg-light">
     <div class="container">
-      <h2 class="text-center mb-5">Technical Skills</h2>
-      
-      <!-- Programming Languages -->
-      <h3 class="text-center mb-4">Programming Languages</h3>
-      <div class="row mb-5">
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              
-              <h5 class="card-title">Python</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 90%"></div>
-              </div>
-              <p class="card-text">Advanced proficiency in Python for AI/ML development, data analysis, and web applications.</p>
+        <h2 class="section-title text-center">Technical Arsenal</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="skill-category">
+                    <h4 class="mb-4"><i class="fas fa-brain mr-2"></i>AI/ML</h4>
+                    <div class="skill-item">Deep Learning</div>
+                    <div class="skill-item">Computer Vision</div>
+                    <div class="skill-item">Natural Language Processing</div>
+                    <div class="skill-item">Reinforcement Learning</div>
+                </div>
             </div>
-          </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              
-              <h5 class="card-title">Java</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 85%"></div>
-              </div>
-              <p class="card-text">Strong experience in Java development and object-oriented programming.</p>
+            <div class="col-md-4">
+                <div class="skill-category">
+                    <h4 class="mb-4"><i class="fas fa-tools mr-2"></i>Frameworks</h4>
+                    <div class="skill-item">TensorFlow/Keras</div>
+                    <div class="skill-item">PyTorch Lightning</div>
+                    <div class="skill-item">Hugging Face Transformers</div>
+                    <div class="skill-item">OpenCV</div>
+                </div>
             </div>
-          </div>
-        </div>
-  
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-             
-              <h5 class="card-title">C++</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
-              </div>
-              <p class="card-text">Experience in C++ for system programming and optimization.</p>
+            <div class="col-md-4">
+                <div class="skill-category">
+                    <h4 class="mb-4"><i class="fas fa-chart-line mr-2"></i>MLOps</h4>
+                    <div class="skill-item">Docker</div>
+                    <div class="skill-item">Kubeflow</div>
+                    <div class="skill-item">MLflow</div>
+                    <div class="skill-item">AWS SageMaker</div>
+                </div>
             </div>
-          </div>
         </div>
-  
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-             
-              <h5 class="card-title">JavaScript</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"></div>
-              </div>
-              <p class="card-text">Experience in web development and frontend frameworks.</p>
-            </div>
-          </div>
-        </div>
-
-        
-      </div>
-  
-      <!-- AI/ML Skills -->
-      <h3 class="text-center mb-4">AI & Machine Learning</h3>
-      <div class="row mb-5">
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-             
-              <h5 class="card-title">TensorFlow</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 85%"></div>
-              </div>
-              <p class="card-text">Deep learning model development and deployment.</p>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-            
-              <h5 class="card-title">PyTorch</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 80%"></div>
-              </div>
-              <p class="card-text">Deep learning model development and deployment.</p>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-            
-              <h5 class="card-title">Scikit-learn</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 90%"></div>
-              </div>
-              <p class="card-text">Machine learning algorithms and data preprocessing.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row mb-5">
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-            
-              <h5 class="card-title">OpenCV</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 85%"></div>
-              </div>
-              <p class="card-text">Computer vision and image processing applications.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body text-center">
-          
-            <h5 class="card-title">LangChain & LangGraph</h5>
-            <div class="progress mb-3">
-              <div class="progress-bar bg-success" role="progressbar" style="width: 80%"></div>
-            </div>
-            <p class="card-text">Framework for Agent Development.</p>
-          </div>
-        </div>
-      </div>
-
-
-  
-      <!-- Data Science Tools -->
-      <h3 class="text-center mb-4">Data Science & Tools</h3>
-      <div class="row mb-5">
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-            
-              <h5 class="card-title">Pandas</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-info" role="progressbar" style="width: 90%"></div>
-              </div>
-              <p class="card-text">Data manipulation and analysis.</p>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-            
-              <h5 class="card-title">NumPy</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-info" role="progressbar" style="width: 85%"></div>
-              </div>
-              <p class="card-text">Scientific computing and array operations.</p>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-             
-              <h5 class="card-title">SQL</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-info" role="progressbar" style="width: 80%"></div>
-              </div>
-              <p class="card-text">Database design and complex queries.</p>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-            
-              <h5 class="card-title">Docker</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-info" role="progressbar" style="width: 75%"></div>
-              </div>
-              <p class="card-text">Containerization and deployment.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Additional Tools -->
-      <h3 class="text-center mb-4">Development Tools</h3>
-      <div class="row">
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-            
-              <h5 class="card-title">Git</h5>
-              <div class="progress mb-3">
-                <div class="progress-bar bg-warning" role="progressbar" style="width: 85%"></div>
-              </div>
-              <p class="card-text">Version control and collaboration.</p>
-            </div>
-          </div>
-        </div>
-  
-        
-  
-        
-  
-        
-      </div>
     </div>
-  </section>
-  
-  <!-- Add this CSS to your stylesheet -->
-  <style>
-  .skills-section {
-      padding: 60px 0;
-  }
-  
-  .skill-icon {
-      max-width: 64px;
-      height: auto;
-      margin: 0 auto;
-  }
-  
-  .card {
-      transition: transform 0.3s ease;
-  }
-  
-  .card:hover {
-      transform: translateY(-5px);
-  }
-  
-  .progress {
-      height: 8px;
-      margin-bottom: 10px;
-  }
-  
-  .card-text {
-      font-size: 0.9rem;
-      color: #6c757d;
-  }
-  </style>
-
-<!-- Contact Section -->
-<section id="contact" class="contact-section text-white bg-dark text-center fade-in">
-  <div class="container">
-    <h2>Contact Me</h2>
-    <p><i class="fas fa-envelope"></i> francescomanco.2001@gmail.com</p>
-    <div class="d-flex justify-content-center">
-      <a href="https://linkedin.com/in/francesco-manco-0b303518a/" class="social-icon mx-3"><i class="fab fa-linkedin"></i></a>
-      <a href="https://github.com/FrancescoManco" class="social-icon mx-3"><i class="fab fa-github"></i></a>
-    </div>
-  </div>
 </section>
 
-<!-- Footer -->
-<footer>
-  <p>&copy; 2024 Francesco Manco</p>
-</footer>
+<!-- Add remaining sections with similar enhancements -->
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.5/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-  // Smooth scroll reveal effect for fade-in sections
-  $(document).ready(function () {
-  // Trigger fade-in elements on scroll or on initial load
-  function revealOnScroll() {
-    $('.fade-in').each(function () {
-      const elemPos = $(this).offset().top;
-      const topOfWindow = $(window).scrollTop();
-      if (elemPos < topOfWindow + $(window).height() - 100) {
-        $(this).addClass('visible');
-      }
-    });
-  }
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, { threshold: 0.1 });
 
-  revealOnScroll(); // Trigger on page load
-  $(window).on('scroll', revealOnScroll); // Trigger on scroll
-});
+    document.querySelectorAll('.animate').forEach((el) => observer.observe(el));
 </script>
-
 </body>
 </html>
