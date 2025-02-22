@@ -144,27 +144,43 @@
                      class="img-fluid rounded-circle shadow-lg" style="max-width: 250px;">
             </div>
             <div class="col-md-8">
+                <!-- Personal Description -->
+                <div class="personal-intro mb-5">
+                    <p class="lead" style="font-size: 1.1rem; line-height: 1.6; color: #4a4a4a;">
+                        As an AI Engineer with expertise in Computer Vision, Natural Language Processing, and Quantum Computing, I specialize in bridging cutting-edge research with real-world applications. My work spans from multi-agent systems (e.g., Project Jarvis) to hybrid quantum-classical models, leveraging deep learning and clustering techniques for complex problem-solving. With a strong foundation in theoretical computer science, software engineering, and high-performance computing, I thrive at the intersection of innovation and implementation, developing scalable, transformative AI solutions that tackle real-world challenges.
+                    </p>
+                    <div class="signature mt-3" style="font-family: 'Dancing Script', cursive; font-size: 1.5rem;">
+                        Francesco Manco
+                    </div>
+                </div>
+
+                <!-- Education Timeline -->
                 <div class="timeline">
                     <div class="timeline-item">
-                        <h4>Bachelor's Degree in Computer Science and Software Production Technologies </h4>
-                        <p class="text-muted">University of Bari Aldo Moro  | 2020 - 2023</p>
-                        <ul>
-                            <li>Thesis: Definizione di un processo strutturato per la face detection</li>
-                            <li>Vote: 110/110 e Lode</li>
+                        <h4>Bachelor's Degree in Computer Science and Software Production Technologies</h4>
+                        <p class="text-muted">University of Bari Aldo Moro | 2020 - 2023</p>
+                        <ul class="achievement-list">
+                            <li>🏆 Thesis: "Structured Process for Optimized Face Detection Systems"</li>
+                            <li>🎖️ Grade: 110/110 <i>cum laude</i></li>
+                            
                         </ul>
                     </div>
+                    
                     <div class="timeline-item">
                         <h4>MSc Computer Science - AI Specialization</h4>
-                        <p class="text-muted">University of Bari Aldo Moro  | 2023 - 2023</p>
-                        <ul>
-                            <li></li>
-                            <li></li>
+                        <p class="text-muted">University of Bari Aldo Moro | 2023 - Present</p>
+                        <ul class="achievement-list">
+                           
                         </ul>
                     </div>
                 </div>
-                <a href="Manco_Francesco_CV.pdf" download class="btn btn-primary mt-3">
-                    <i class="fas fa-download mr-2"></i>Download CV
-                </a>
+
+                <!-- CV Download -->
+                <div class="text-center mt-4">
+                    <a href="Manco_Francesco_CV.pdf" download class="btn btn-primary btn-lg">
+                        <i class="fas fa-download mr-2"></i>Download Full CV
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -173,150 +189,172 @@
 <!-- Projects Section -->
 <section id="projects" class="projects-section py-5">
   <div class="container">
-    <h2 class="section-title text-center mb-5">Projects</h2>
-    <div class="row">
+      <h2 class="section-title text-center mb-5">Featured Projects</h2>
+      <div class="row">
 
-      <!-- Project 1: Employee Productivity Prediction -->
-      <div class="col-md-4 mb-4">
-        <div class="card project-card h-100">
-          <div class="card-body">
-            <h5 class="card-title">Employee Productivity Prediction</h5>
-            <div class="mb-3">
-              <span class="tech-badge badge">Machine Learning</span>
-              <span class="tech-badge badge">Python</span>
-              <span class="tech-badge badge">Scikit-learn</span>
-            </div>
-            <p class="card-text">Utilized a dataset from the UCI Machine Learning Repository to classify productivity into two categories: Low and High Productivity.</p>
-            <a href="https://github.com/FrancescoManco/Employee-Productivity-Prediction.git" class="btn btn-primary">
-              <i class="fas fa-code mr-2"></i>Source Code
-            </a>
+          <!-- Employee Productivity Prediction -->
+          <div class="col-md-4 mb-4">
+              <div class="card project-card h-100">
+                  <div class="card-body">
+                      <h5 class="card-title">Employee Productivity Prediction</h5>
+                      <div class="mb-3">
+                          <span class="tech-badge">Machine Learning</span>
+                          <span class="tech-badge">Python</span>
+                          <span class="tech-badge">Scikit-learn</span>
+                      </div>
+                      <p class="card-text">Classification system using UCI dataset to predict productivity levels.</p>
+                      <a href="https://github.com/FrancescoManco/Employee-Productivity-Prediction.git" 
+                         class="btn btn-primary">
+                          <i class="fas fa-code mr-2"></i>View Code
+                      </a>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Project 2: Breast Cancer Wisconsin Diagnostic -->
-      <div class="col-md-4 mb-4">
-        <div class="card project-card h-100">
-          <div class="card-body">
-            <h5 class="card-title">Breast Cancer Wisconsin Diagnostic</h5>
-            <div class="mb-3">
-              <span class="tech-badge badge">Data Science</span>
-              <span class="tech-badge badge">Healthcare</span>
-              <span class="tech-badge badge">Pandas</span>
-            </div>
-            <p class="card-text">Developed a classifier using statistical and ML techniques to predict cancer types, demonstrating the application of data science in healthcare.</p>
-            <a href="https://github.com/FrancescoManco/Breast-Cancer-Wisconsin--Diagnostic-.git" class="btn btn-primary">
-              <i class="fas fa-code mr-2"></i>Source Code
-            </a>
+          <!-- Breast Cancer Diagnostic -->
+          <div class="col-md-4 mb-4">
+              <div class="card project-card h-100">
+                  <div class="card-body">
+                      <h5 class="card-title">Breast Cancer Diagnostic</h5>
+                      <div class="mb-3">
+                          <span class="tech-badge">Healthcare AI</span>
+                          <span class="tech-badge">Feature Engineering</span>
+                          <span class="tech-badge">XGBoost</span>
+                      </div>
+                      <p class="card-text">ML pipeline for cancer type classification using ensemble methods.</p>
+                      <a href="https://github.com/FrancescoManco/Breast-Cancer-Wisconsin--Diagnostic-.git" 
+                         class="btn btn-primary">
+                          <i class="fas fa-code mr-2"></i>View Code
+                      </a>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Project 3: Image Difference Captioning -->
-      <div class="col-md-4 mb-4">
-        <div class="card project-card h-100">
-          <div class="card-body">
-            <h5 class="card-title">Image Difference Captioning</h5>
-            <div class="mb-3">
-              <span class="tech-badge badge">Computer Vision</span>
-              <span class="tech-badge badge">NLP</span>
-              <span class="tech-badge badge">OpenCV</span>
-            </div>
-            <p class="card-text">Developed a tool to automatically describe differences between artworks, supporting art critics and cataloging.</p>
-            <a href="https://github.com/FrancescoManco/Image-Difference-Captioning" class="btn btn-primary">
-              <i class="fas fa-code mr-2"></i>Source Code
-            </a>
+          <!-- Image Difference Captioning -->
+          <div class="col-md-4 mb-4">
+              <div class="card project-card h-100">
+                  <div class="card-body">
+                      <h5 class="card-title">Artwork Difference Captioning</h5>
+                      <div class="mb-3">
+                          <span class="tech-badge">Computer Vision</span>
+                          <span class="tech-badge">Transformers</span>
+                          <span class="tech-badge">CLIP</span>
+                      </div>
+                      <p class="card-text">Multimodal AI system generating descriptive captions for artwork differences.</p>
+                      <a href="https://github.com/FrancescoManco/Image-Difference-Captioning" 
+                         class="btn btn-primary">
+                          <i class="fas fa-code mr-2"></i>View Code
+                      </a>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Project 4: JARVIS -->
-      <div class="col-md-4 mb-4">
-        <div class="card project-card h-100">
-          <div class="card-body">
-            <h5 class="card-title">JARVIS</h5>
-            <div class="mb-3">
-              <span class="tech-badge badge">LLMs</span>
-              <span class="tech-badge badge">AI Agents</span>
-              <span class="tech-badge badge">Personalization</span>
-            </div>
-            <p class="card-text">An advanced digital agent based on LLMs, focusing on adaptive personalization through memory modules and fine-tuning.</p>
-            <a class="btn btn-secondary disabled">
-              <i class="fas fa-lock mr-2"></i>Source Code not available
-            </a>
+          <!-- JARVIS -->
+          <div class="col-md-4 mb-4">
+              <div class="card project-card h-100">
+                  <div class="card-body">
+                      <h5 class="card-title">JARVIS AI Assistant</h5>
+                      <div class="mb-3">
+                          <span class="tech-badge">LLMs</span>
+                          <span class="tech-badge">RAG</span>
+                          <span class="tech-badge">Fine-tuning</span>
+                          <span class="tech-badge">AI Agent</span>
+                          <span class="tech-badge">LangChain/LangGraph</span>
+                      </div>
+                      <p class="card-text">Multi AI agent system with persistent memory and adaptive learning capabilities with LangChain and LangGraph. </p>
+                      <button class="btn btn-secondary disabled" disabled>
+                          <i class="fas fa-lock mr-2"></i>Proprietary Code
+                      </button>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Project 5: Microbiome Data Analysis -->
-      <div class="col-md-4 mb-4">
-        <div class="card project-card h-100">
-          <div class="card-body">
-            <h5 class="card-title">Microbiome Data Analysis</h5>
-            <div class="mb-3">
-              <span class="tech-badge badge">Autoencoders</span>
-              <span class="tech-badge badge">Transfer Learning</span>
-              <span class="tech-badge badge">Healthcare</span>
-            </div>
-            <p class="card-text">Proposed a novel framework to analyze gut microbial profiles, aiming to reduce diagnostic time and identify biomarkers.</p>
-            <a href="https://github.com/FrancescoManco/Microbioma_Manco_Francesco" class="btn btn-primary">
-              <i class="fas fa-code mr-2"></i>Source Code
-            </a>
+          <!-- Microbiome Analysis -->
+          <div class="col-md-4 mb-4">
+              <div class="card project-card h-100">
+                  <div class="card-body">
+                      <h5 class="card-title">Microbiome Analysis Framework</h5>
+                      <div class="mb-3">
+                          <span class="tech-badge">Autoencoders</span>
+                          <span class="tech-badge">Bio-Informatics</span>
+                          <span class="tech-badge">PyTorch</span>
+                      </div>
+                      <p class="card-text">Novel approach for ASD detection through microbial analysis with Autoencoders and Decision Tree.</p>
+                      <a href="https://github.com/FrancescoManco/Microbioma_Manco_Francesco" 
+                         class="btn btn-primary">
+                          <i class="fas fa-code mr-2"></i>View Code
+                      </a>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Project 6: Quantum Metric Learning -->
-      <div class="col-md-4 mb-4">
-        <div class="card project-card h-100">
-          <div class="card-body">
-            <h5 class="card-title">Quantum Metric Learning</h5>
-            <div class="mb-3">
-              <span class="tech-badge badge">Quantum Computing</span>
-              <span class="tech-badge badge">PyTorch</span>
-              <span class="tech-badge badge">Clustering</span>
-            </div>
-            <p class="card-text">Explored a hybrid quantum-classical architecture for embedding generation and clustering, tested on MNIST dataset.</p>
-            <a href="https://github.com/FrancescoManco/QuantumMetricLearning" class="btn btn-primary">
-              <i class="fas fa-code mr-2"></i>Source Code
-            </a>
+          <!-- Quantum Metric Learning -->
+          <div class="col-md-4 mb-4">
+              <div class="card project-card h-100">
+                  <div class="card-body">
+                      <h5 class="card-title">Quantum Metric Learning</h5>
+                      <div class="mb-3">
+                          <span class="tech-badge">Quantum ML</span>
+                          <span class="tech-badge">PyTorch</span>
+                          <span class="tech-badge">Qiskit</span>
+                      </div>
+                      <p class="card-text">Hybrid quantum-classical model for clustering on MNIST.</p>
+                      <a href="https://github.com/FrancescoManco/QuantumMetricLearning" 
+                         class="btn btn-primary">
+                          <i class="fas fa-code mr-2"></i>View Code
+                      </a>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
 
-    </div>
+      </div>
   </div>
 </section>
+
+
 <!-- Skills Section -->
 <section id="skills" class="py-5 bg-light">
     <div class="container">
-        <h2 class="section-title text-center">Technical Arsenal</h2>
+        <h2 class="section-title text-center">Technical Skills</h2>
         <div class="row">
             <div class="col-md-4">
                 <div class="skill-category">
                     <h4 class="mb-4"><i class="fas fa-brain mr-2"></i>AI/ML</h4>
+                    <div class="skill-item">Machine Learning</div>
                     <div class="skill-item">Deep Learning</div>
                     <div class="skill-item">Computer Vision</div>
                     <div class="skill-item">Natural Language Processing</div>
-                    <div class="skill-item">Reinforcement Learning</div>
+                    <div class="skill-item">Generative AI</div>
+                    <div class="skill-item">Quantum Computing</div>
+                    <div class="skill-item">Agent-Based AI</div>
+
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="skill-category">
                     <h4 class="mb-4"><i class="fas fa-tools mr-2"></i>Frameworks</h4>
                     <div class="skill-item">TensorFlow/Keras</div>
-                    <div class="skill-item">PyTorch Lightning</div>
-                    <div class="skill-item">Hugging Face Transformers</div>
+                    <div class="skill-item">PyTorch </div>
+                    <div class="skill-item">Hugging Face </div>
                     <div class="skill-item">OpenCV</div>
+                    <div class="skill-item">Qiskit</div>
+                    <div class="skill-item">TorchVision</div>
+                    <div class="skill-item">TorchAudio</div>
+                    <div class="skill-item">Pandas</div>
+                    <div class="skill-item">LangChain</div>
+                    <div class="skill-item">LangGraph</div>
+                    <div class="skill-item">Ollama</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="skill-category">
                     <h4 class="mb-4"><i class="fas fa-chart-line mr-2"></i>MLOps</h4>
                     <div class="skill-item">Docker</div>
-                    <div class="skill-item">Kubeflow</div>
+                    <div class="skill-item">DockerCompose</div>
+                    <div class="skill-item">GitHub Actions</div>
+                    <div class="skill-item">CI/CD</div>
                     <div class="skill-item">MLflow</div>
-                    <div class="skill-item">AWS SageMaker</div>
+                    
                 </div>
             </div>
         </div>
@@ -324,16 +362,22 @@
 </section>
 
 <!-- Add remaining sections with similar enhancements -->
-
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.5/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    // Intersection Observer for scroll animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate');
-            }
-        });
-    }, { threshold: 0.1 });
+  // Intersection Observer for animations
+  const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+          if (entry.isIntersecting) {
+              entry.target.classList.add('animate');
+          }
+      });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.project-card').forEach((el) => observer.observe(el));
+</script>
 
     document.querySelectorAll('.animate').forEach((el) => observer.observe(el));
 </script>
