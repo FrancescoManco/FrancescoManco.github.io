@@ -120,6 +120,36 @@
             .hero h1 { font-size: 2.5rem; }
             .section-title { font-size: 2rem; }
         }
+        .personal-intro {
+        border-left: 4px solid #2A2A72;
+        padding-left: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .achievement-list {
+        list-style-type: none;
+        padding-left: 1.5rem;
+    }
+
+    .achievement-list li {
+        position: relative;
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+    }
+
+    .achievement-list li::before {
+        content: "▹";
+        position: absolute;
+        left: 0;
+        color: #009FFD;
+    }
+
+    .timeline-item {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: rgba(42, 42, 114, 0.03);
+        border-radius: 8px;
+    }
     </style>
 </head>
 <body>
