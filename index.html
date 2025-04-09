@@ -7,6 +7,8 @@
     <title>Francesco Manco | AI Engineering Portfolio</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #2A2A72;
@@ -17,7 +19,78 @@
         body {
             scroll-behavior: smooth;
             padding-top: 70px;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Project Filters */
+        .project-filters {
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .project-filters button {
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .project-filters button.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .navbar-toggler {
+            border: none;
+            padding: 0;
+        }
+        
+        .navbar-toggler:focus {
+            outline: none;
+            box-shadow: none;
         }
 
         /* Hero Section */
@@ -25,6 +98,22 @@
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.05)" points="0,100 100,0 100,100"/></svg>');
+            background-size: cover;
         }
 
         .hero h1 {
@@ -110,9 +199,37 @@
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
         .animate {
             animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .animate-left {
+            animation: fadeInLeft 0.8s ease-out forwards;
+        }
+        
+        .animate-right {
+            animation: fadeInRight 0.8s ease-out forwards;
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s infinite;
         }
 
         /* Responsive Adjustments */
@@ -208,21 +325,55 @@
 </head>
 <body>
 
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Francesco Manco</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#projects">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <!-- Hero Section -->
 <section class="hero text-center">
     <div class="container">
         <h1 class="animate">Transforming Ideas with AI Solutions</h1>
-        <p class="lead animate">MSc Computer Science Graduate Specializing in Machine Learning & Deep Learning</p>
-        <a href="#projects" class="btn btn-lg btn-light mx-2">View Projects</a>
-        <a href="#contact" class="btn btn-lg btn-outline-light mx-2">Contact Me</a>
+        <p class="lead animate" style="animation-delay: 0.2s;">MSc Computer Science Graduate Specializing in Machine Learning & Deep Learning</p>
+        <div style="animation-delay: 0.4s;" class="animate">
+            <a href="#projects" class="btn btn-lg btn-light mx-2 animate-pulse">View Projects</a>
+            <a href="#contact" class="btn btn-lg btn-outline-light mx-2">Contact Me</a>
+        </div>
+        <div class="mt-5 animate" style="animation-delay: 0.6s;">
+            <a href="#about" class="text-white">
+                <i class="fas fa-chevron-down fa-2x animate-pulse"></i>
+            </a>
+        </div>
     </div>
 </section>
 
+
 <!-- About Section -->
-<section id="about" class="py-5">
+<section id="about" class="py-5" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 preserveAspectRatio=%22none%22%3E%3Ccircle cx=%2280%22 cy=%2220%22 r=%2220%22 fill=%22rgba(0,159,253,0.03)%22/%3E%3Ccircle cx=%2220%22 cy=%2280%22 r=%2230%22 fill=%22rgba(42,42,114,0.03)%22/%3E%3C/svg%3E'); background-size: cover;">
     <div class="container">
         <h2 class="section-title text-center">About Me</h2>
-        <div class="row align-items-center">
+        <div class="row align-items-center" data-aos="fade-up">
             <div class="col-md-4 text-center mb-4">
                 <img src="images/1645642649696.jpeg" alt="Francesco Manco" 
                      class="img-fluid rounded-circle shadow-lg" style="max-width: 250px;">
@@ -246,7 +397,6 @@
                         <ul class="achievement-list">
                             <li>🏆 Thesis: "Structured Process for Optimized Face Detection Systems"</li>
                             <li>🎖️ Grade: 110/110 <i>cum laude</i></li>
-                            
                         </ul>
                     </div>
                     
@@ -254,14 +404,13 @@
                         <h4>MSc Computer Science - AI Specialization</h4>
                         <p class="text-muted">University of Bari Aldo Moro | 2023 - Present</p>
                         <ul class="achievement-list">
-                           
                         </ul>
                     </div>
+
                     <div class="timeline-item">
                         <h4>Stage Sidea Group, Bari - Junior Data Scientist</h4>
                         <p class="text-muted">Sidea Group | 2025 - Present</p>
                         <ul class="achievement-list">
-                           
                         </ul>
                     </div>
                 </div>
@@ -277,14 +426,27 @@
     </div>
 </section>
 
+
 <!-- Projects Section -->
 <section id="projects" class="projects-section py-5">
   <div class="container">
       <h2 class="section-title text-center mb-5">Featured Projects</h2>
-      <div class="row">
+      
+      <!-- Project Filters -->
+      <div class="text-center mb-5" data-aos="fade-up">
+          <div class="btn-group project-filters">
+              <button type="button" class="btn btn-outline-primary active" data-filter="all">All</button>
+              <button type="button" class="btn btn-outline-primary" data-filter="ml">Machine Learning</button>
+              <button type="button" class="btn btn-outline-primary" data-filter="cv">Computer Vision</button>
+              <button type="button" class="btn btn-outline-primary" data-filter="nlp">NLP</button>
+              <button type="button" class="btn btn-outline-primary" data-filter="quantum">Quantum</button>
+          </div>
+      </div>
+      
+      <div class="row project-container">
 
           <!-- Employee Productivity Prediction -->
-          <div class="col-md-4 mb-4">
+          <div class="col-md-4 mb-4 project-item" data-category="ml" data-aos="fade-up">
               <div class="card project-card h-100">
                   <div class="card-body">
                       <h5 class="card-title">Employee Productivity Prediction</h5>
@@ -294,16 +456,23 @@
                           <span class="tech-badge">Scikit-learn</span>
                       </div>
                       <p class="card-text">Classification system using UCI dataset to predict productivity levels.</p>
-                      <a href="https://github.com/FrancescoManco/Employee-Productivity-Prediction.git" 
-                         class="btn btn-primary">
-                          <i class="fas fa-code mr-2"></i>View Code
-                      </a>
+                      <div class="d-flex justify-content-between mt-3">
+                          <a href="https://github.com/FrancescoManco/Employee-Productivity-Prediction.git" 
+                             class="btn btn-primary">
+                              <i class="fas fa-code mr-2"></i>View Code
+                          </a>
+                          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#projectModal" 
+                                  data-title="Employee Productivity Prediction" 
+                                  data-description="A machine learning classification system that uses the UCI Garment Manufacturing Productivity dataset to predict productivity levels based on various factors like work team, targeted productivity, and more. The project implements multiple algorithms including Random Forest, SVM, and Gradient Boosting to achieve high accuracy in predictions.">
+                              <i class="fas fa-info-circle"></i>
+                          </button>
+                      </div>
                   </div>
               </div>
           </div>
 
           <!-- Breast Cancer Diagnostic -->
-          <div class="col-md-4 mb-4">
+          <div class="col-md-4 mb-4 project-item" data-category="ml" data-aos="fade-up" data-aos-delay="100">
               <div class="card project-card h-100">
                   <div class="card-body">
                       <h5 class="card-title">Breast Cancer Diagnostic</h5>
@@ -313,16 +482,23 @@
                           <span class="tech-badge">XGBoost</span>
                       </div>
                       <p class="card-text">ML pipeline for cancer type classification using ensemble methods.</p>
-                      <a href="https://github.com/FrancescoManco/Breast-Cancer-Wisconsin--Diagnostic-.git" 
-                         class="btn btn-primary">
-                          <i class="fas fa-code mr-2"></i>View Code
-                      </a>
+                      <div class="d-flex justify-content-between mt-3">
+                          <a href="https://github.com/FrancescoManco/Breast-Cancer-Wisconsin--Diagnostic-.git" 
+                             class="btn btn-primary">
+                              <i class="fas fa-code mr-2"></i>View Code
+                          </a>
+                          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#projectModal" 
+                                  data-title="Breast Cancer Diagnostic" 
+                                  data-description="A machine learning pipeline for breast cancer classification using the Wisconsin Diagnostic dataset. The project implements feature engineering techniques and ensemble methods like XGBoost to accurately classify malignant and benign tumors based on cell nuclei characteristics.">
+                              <i class="fas fa-info-circle"></i>
+                          </button>
+                      </div>
                   </div>
               </div>
           </div>
 
           <!-- Image Difference Captioning -->
-          <div class="col-md-4 mb-4">
+          <div class="col-md-4 mb-4 project-item" data-category="cv" data-aos="fade-up" data-aos-delay="200">
               <div class="card project-card h-100">
                   <div class="card-body">
                       <h5 class="card-title">Artwork Difference Captioning</h5>
@@ -332,16 +508,23 @@
                           <span class="tech-badge">CLIP</span>
                       </div>
                       <p class="card-text">Multimodal AI system generating descriptive captions for artwork differences.</p>
-                      <a href="https://github.com/FrancescoManco/Image-Difference-Captioning" 
-                         class="btn btn-primary">
-                          <i class="fas fa-code mr-2"></i>View Code
-                      </a>
+                      <div class="d-flex justify-content-between mt-3">
+                          <a href="https://github.com/FrancescoManco/Image-Difference-Captioning" 
+                             class="btn btn-primary">
+                              <i class="fas fa-code mr-2"></i>View Code
+                          </a>
+                          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#projectModal" 
+                                  data-title="Artwork Difference Captioning" 
+                                  data-description="A computer vision project that uses multimodal AI to generate descriptive captions for differences between artwork images. The system leverages CLIP and transformer architectures to understand visual differences and express them in natural language.">
+                              <i class="fas fa-info-circle"></i>
+                          </button>
+                      </div>
                   </div>
               </div>
           </div>
 
           <!-- JARVIS -->
-          <div class="col-md-4 mb-4">
+          <div class="col-md-4 mb-4 project-item" data-category="nlp" data-aos="fade-up">
               <div class="card project-card h-100">
                   <div class="card-body">
                       <h5 class="card-title">JARVIS AI Assistant</h5>
@@ -353,16 +536,23 @@
                           <span class="tech-badge">LangChain/LangGraph</span>
                       </div>
                       <p class="card-text">Multi AI agent system with persistent memory and adaptive learning capabilities with LangChain and LangGraph. </p>
-                      <a href="https://github.com/FrancescoManco/JARVIS" 
-                         class="btn btn-primary">
-                          <i class="fas fa-code mr-2"></i>View Code
-                      </a>
+                      <div class="d-flex justify-content-between mt-3">
+                          <a href="https://github.com/FrancescoManco/JARVIS" 
+                             class="btn btn-primary">
+                              <i class="fas fa-code mr-2"></i>View Code
+                          </a>
+                          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#projectModal" 
+                                  data-title="JARVIS AI Assistant" 
+                                  data-description="An advanced multi-agent AI system built with LangChain and LangGraph that features persistent memory and adaptive learning capabilities. JARVIS can understand context, learn from interactions, and perform complex tasks through a network of specialized AI agents working together.">
+                              <i class="fas fa-info-circle"></i>
+                          </button>
+                      </div>
                   </div>
               </div>
           </div>
 
           <!-- Microbiome Analysis -->
-          <div class="col-md-4 mb-4">
+          <div class="col-md-4 mb-4 project-item" data-category="ml" data-aos="fade-up" data-aos-delay="100">
               <div class="card project-card h-100">
                   <div class="card-body">
                       <h5 class="card-title">Microbiome Analysis Framework</h5>
@@ -372,16 +562,23 @@
                           <span class="tech-badge">PyTorch</span>
                       </div>
                       <p class="card-text">Novel approach for ASD detection through microbial analysis with Autoencoders and Decision Tree.</p>
-                      <a href="https://github.com/FrancescoManco/Microbioma_Manco_Francesco" 
-                         class="btn btn-primary">
-                          <i class="fas fa-code mr-2"></i>View Code
-                      </a>
+                      <div class="d-flex justify-content-between mt-3">
+                          <a href="https://github.com/FrancescoManco/Microbioma_Manco_Francesco" 
+                             class="btn btn-primary">
+                              <i class="fas fa-code mr-2"></i>View Code
+                          </a>
+                          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#projectModal" 
+                                  data-title="Microbiome Analysis Framework" 
+                                  data-description="A novel approach for Autism Spectrum Disorder (ASD) detection through microbial analysis using Autoencoders and Decision Tree algorithms. This bio-informatics project processes microbiome data to identify patterns associated with ASD, providing a potential diagnostic tool.">
+                              <i class="fas fa-info-circle"></i>
+                          </button>
+                      </div>
                   </div>
               </div>
           </div>
 
           <!-- Quantum Metric Learning -->
-          <div class="col-md-4 mb-4">
+          <div class="col-md-4 mb-4 project-item" data-category="quantum" data-aos="fade-up" data-aos-delay="200">
               <div class="card project-card h-100">
                   <div class="card-body">
                       <h5 class="card-title">Quantum Metric Learning</h5>
@@ -391,10 +588,17 @@
                           <span class="tech-badge">Qiskit</span>
                       </div>
                       <p class="card-text">Hybrid quantum-classical model for clustering on MNIST.</p>
-                      <a href="https://github.com/FrancescoManco/QuantumMetricLearning" 
-                         class="btn btn-primary">
-                          <i class="fas fa-code mr-2"></i>View Code
-                      </a>
+                      <div class="d-flex justify-content-between mt-3">
+                          <a href="https://github.com/FrancescoManco/QuantumMetricLearning" 
+                             class="btn btn-primary">
+                              <i class="fas fa-code mr-2"></i>View Code
+                          </a>
+                          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#projectModal" 
+                                  data-title="Quantum Metric Learning" 
+                                  data-description="A hybrid quantum-classical model for clustering on the MNIST dataset. This project explores the potential of quantum computing for machine learning tasks, specifically using quantum circuits to enhance metric learning for image clustering.">
+                              <i class="fas fa-info-circle"></i>
+                          </button>
+                      </div>
                   </div>
               </div>
           </div>
@@ -456,9 +660,9 @@
 <!-- Contact Section -->
 <section id="contact" class="contact-section py-5 bg-dark text-white">
     <div class="container">
-        <h2 class="section-title text-center mb-5"></h2>
+        <h2 class="section-title text-center mb-5" data-aos="fade-up">Get In Touch</h2>
         <div class="row justify-content-center">
-            <div class="col-md-8 text-center">
+            <div class="col-md-8 text-center" data-aos="fade-up">
                 <div class="contact-info">
                     <div class="contact-item mb-4">
                         <a href="mailto:francescomanco.2001@gmail.com" class="text-white">
@@ -483,29 +687,169 @@
                             <span class="d-block mt-2">GitHub</span>
                         </a>
                     </div>
+                    
+                    <div class="mt-5">
+                        <button class="btn btn-outline-light btn-lg" data-toggle="modal" data-target="#contactFormModal">
+                            <i class="fas fa-paper-plane mr-2"></i>Send Me a Message
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Add remaining sections with similar enhancements -->
+<!-- Footer -->
+<footer class="py-4 bg-light">
+    <div class="container text-center">
+        <p class="mb-0">&copy; 2023 Francesco Manco. All rights reserved.</p>
+        <small class="text-muted">AI Engineer | Computer Vision Specialist | Quantum Computing Enthusiast</small>
+    </div>
+</footer>
+
+<!-- Project Modal -->
+<div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="projectModalLabel">Project Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="project-details-content">
+                    <!-- Content will be dynamically inserted here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Form Modal -->
+<div class="modal fade" id="contactFormModal" tabindex="-1" role="dialog" aria-labelledby="contactFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="contactFormModalLabel">Send Me a Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.5/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  // Intersection Observer for animations
-  const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-          if (entry.isIntersecting) {
-              entry.target.classList.add('animate');
-          }
-      });
-  }, { threshold: 0.1 });
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
 
-  document.querySelectorAll('.project-card').forEach((el) => observer.observe(el));
+    // Navbar scroll behavior
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 50) {
+            $('.navbar').addClass('scrolled');
+        } else {
+            $('.navbar').removeClass('scrolled');
+        }
+    });
 
+    // Project filtering
+    $('.project-filters button').on('click', function() {
+        const filter = $(this).data('filter');
+        
+        // Update active button
+        $('.project-filters button').removeClass('active');
+        $(this).addClass('active');
+        
+        // Filter projects
+        if (filter === 'all') {
+            $('.project-item').show();
+        } else {
+            $('.project-item').hide();
+            $(`.project-item[data-category="${filter}"]`).show();
+        }
+        
+        // Refresh AOS
+        AOS.refresh();
+    });
+
+    // Project modal
+    $('#projectModal').on('show.bs.modal', function (event) {
+        const button = $(event.relatedTarget);
+        const title = button.data('title');
+        const description = button.data('description');
+        
+        const modal = $(this);
+        modal.find('.modal-title').text(title);
+        modal.find('.project-details-content').html(`
+            <h4>${title}</h4>
+            <p>${description}</p>
+        `);
+    });
+
+    // Contact form submission
+    $('#contactForm').on('submit', function(e) {
+        e.preventDefault();
+        // In a real implementation, you would send the form data to a server
+        alert('Thank you for your message! This is a demo form - in a real implementation, your message would be sent.');
+        $('#contactFormModal').modal('hide');
+        this.reset();
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.project-card').forEach((el) => observer.observe(el));
 </script>
 </body>
 </html>
