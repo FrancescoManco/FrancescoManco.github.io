@@ -97,11 +97,22 @@
         .hero {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 120px 0 80px;
+            padding: 140px 0 100px;
             position: relative;
             overflow: hidden;
             background-attachment: fixed;
             background-position: center;
+            background-size: cover;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="rgba(255,255,255,0.1)"/></svg>') no-repeat bottom;
             background-size: cover;
         }
         
@@ -138,43 +149,86 @@
 
         /* Project Cards */
         .project-card {
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
             border: none;
             margin-bottom: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,249,250,0.95));
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
         .tech-badge {
-            background: var(--secondary-color);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
             color: white;
-            margin: 2px;
+            margin: 3px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         /* Skills Matrix */
         .skill-category {
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.95);
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(42,42,114,0.1);
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.18);
         }
 
         .skill-item {
-            padding: 8px 15px;
-            margin: 5px;
-            background: #f8f9fa;
-            border-radius: 20px;
+            padding: 10px 18px;
+            margin: 6px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 25px;
             font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(42,42,114,0.1);
+            display: inline-block;
+        }
+        
+        .skill-item:hover {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         /* Timeline */
         .timeline {
-            border-left: 3px solid var(--secondary-color);
-            padding-left: 30px;
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 35px;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--secondary-color), var(--primary-color));
         }
 
         .timeline-item {
@@ -185,13 +239,14 @@
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -38px;
-            top: 5px;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-color);
+            left: -42px;
+            top: 8px;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border-radius: 50%;
-            border: 3px solid white;
+            border: 4px solid white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
         }
 
         /* Animations */
@@ -236,6 +291,53 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .section-title { font-size: 2rem; }
+            .timeline { padding-left: 25px; }
+            .timeline-item::before { left: -35px; }
+            .skill-category { padding: 20px; }
+            .tech-badge { font-size: 0.8rem; padding: 3px 10px; }
+        }
+        
+        /* Scroll Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+        
+        /* Floating Action Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
         .personal-intro {
         border-left: 4px solid #2A2A72;
@@ -262,15 +364,23 @@
     }
 
     .timeline-item {
-        margin-bottom: 2rem;
-        padding: 1.5rem;
-        background: rgba(42, 42, 114, 0.03);
-        border-radius: 8px;
+        margin-bottom: 2.5rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, rgba(42, 42, 114, 0.03), rgba(0, 159, 253, 0.03));
+        border-radius: 12px;
+        border: 1px solid rgba(42, 42, 114, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .timeline-item:hover {
+        background: linear-gradient(135deg, rgba(42, 42, 114, 0.05), rgba(0, 159, 253, 0.05));
+        transform: translateX(5px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     }
 
     /* Contact Section */
 .contact-section {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     position: relative;
     overflow: hidden;
 }
@@ -344,6 +454,9 @@
                     <a class="nav-link" href="#skills">Skills</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#publications">Publications</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#contact">Contact</a>
                 </li>
             </ul>
@@ -408,8 +521,15 @@
                     </div>
 
                     <div class="timeline-item">
-                        <h4>Stage Sidea Group, Bari - Junior Data Scientist</h4>
-                        <p class="text-muted">Sidea Group | 2025 - Present</p>
+                        <h4>Tirocinio Curriculare - Junior Data Scientist</h4>
+                        <p class="text-muted">Sidea Group, Bari | Gennaio 2025 - Giugno 2025</p>
+                        <ul class="achievement-list">
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h4>Tirocinio - Junior Data Scientist</h4>
+                        <p class="text-muted">Sidea Group, Bari | Giugno 2025 - Presente</p>
                         <ul class="achievement-list">
                         </ul>
                     </div>
@@ -608,6 +728,58 @@
 </section>
 
 
+<!-- Publications Section -->
+<section id="publications" class="py-5" style="background: linear-gradient(135deg, rgba(42,42,114,0.05), rgba(0,159,253,0.05));">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Scientific Publications</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-lg border-0 mb-4" data-aos="fade-up">
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-md-2 text-center mb-3">
+                                <div class="publication-icon p-3 rounded-circle" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; display: inline-block;">
+                                    <i class="fas fa-file-alt fa-2x"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <h4 class="card-title mb-3" style="color: var(--primary-color); font-weight: 600;">
+                                    JARVIS: Adaptive Dual-Hemisphere Architectures For Personalized Large Agentic Models
+                                </h4>
+                                <p class="text-muted mb-3">
+                                    <strong>Conference:</strong> Adjunct Proceedings of the 33rd ACM Conference on User Modeling, Adaptation and Personalization (UMAP Adjunct '25)
+                                </p>
+                                <p class="card-text mb-3" style="text-align: justify; line-height: 1.6;">
+                                    This paper proposes JARVIS, a novel approach to provide Large Language Models (LLMs) with enhanced personalization through a two-hemisphere architecture inspired by the biological organization of the human brain. The system follows a Large Agentic Model (LAM) architecture where the subjective hemisphere dynamically models user preferences and iteratively optimizes behaviors through a training phase grounded on LoRA (Low-Rank Adaptation), DPO (Direct Preference Optimization), human feedback, and synthetic data generation ("digital dreams").
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge badge-primary mr-2">Machine Learning</span>
+                                    <span class="badge badge-primary mr-2">AI Agents</span>
+                                    <span class="badge badge-primary mr-2">Personalization</span>
+                                    <span class="badge badge-primary mr-2">LLMs</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar-alt mr-1"></i>2025
+                                    </small>
+                                    <div>
+                                        <a href="https://dl.acm.org/doi/abs/10.1145/3708319.3733674" target="_blank" class="btn btn-outline-primary btn-sm mr-2">
+                                            <i class="fas fa-external-link-alt mr-1"></i>View Paper
+                                        </a>
+                                        <span class="badge badge-secondary">
+                                            <i class="fas fa-university mr-1"></i>ACM Digital Library
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Skills Section -->
 <section id="skills" class="py-5 bg-light">
     <div class="container">
@@ -770,8 +942,27 @@
     AOS.init({
         duration: 800,
         easing: 'ease-in-out',
-        once: true
+        once: true,
+        offset: 100
     });
+    
+    // Progress Bar
+    function updateProgressBar() {
+        const scrollTop = window.pageYOffset;
+        const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / documentHeight) * 100;
+        document.querySelector('.progress-bar').style.width = progress + '%';
+    }
+    
+    // Scroll to top functionality
+    function toggleScrollToTop() {
+        const scrollToTopBtn = document.querySelector('.scroll-to-top');
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.classList.add('visible');
+        } else {
+            scrollToTopBtn.classList.remove('visible');
+        }
+    }
 
     // Navbar scroll behavior
     $(window).scroll(function() {
@@ -780,6 +971,12 @@
         } else {
             $('.navbar').removeClass('scrolled');
         }
+        
+        // Update progress bar
+        updateProgressBar();
+        
+        // Toggle scroll to top button
+        toggleScrollToTop();
     });
 
     // Project filtering
@@ -851,5 +1048,13 @@
 
     document.querySelectorAll('.project-card').forEach((el) => observer.observe(el));
 </script>
+<!-- Progress Bar -->
+<div class="progress-bar"></div>
+
+<!-- Scroll to Top Button -->
+<button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
 </body>
 </html>
