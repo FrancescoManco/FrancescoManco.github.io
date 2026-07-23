@@ -1,1280 +1,999 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AI Engineer | Master's in Computer Science | Computer Vision & Generative AI Specialist">
-    <title>Francesco Manco | AI Engineering Portfolio</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        :root {
-            --canvas: #181d25;
-            --canvas-soft: #2c343f;
-            --canvas-strong: #020203;
-            --canvas-deepest: #101319;
-            --on-canvas: #fcfcfd;
-            --on-canvas-soft: #657081;
-            --hairline: #fcfcfd;
-            --hairline-soft: #657081;
-            --shadow-tint: #2c343f;
-            --radius-pill: 9999px;
-            --radius-lg: 20px;
-            --radius-sm: 10px;
-            /* legacy aliases kept for compatibility with inline styles below */
-            --primary-color: var(--canvas-soft);
-            --secondary-color: var(--on-canvas-soft);
-            --accent-color: var(--on-canvas);
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AI Engineer · Computer Vision · NLP · Agentic Systems · Quantum ML">
+<title>Francesco Manco — AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
 
-        body {
-            scroll-behavior: smooth;
-            padding-top: 70px;
-            font-family: 'Inter', 'AudiType', Arial, sans-serif;
-            font-weight: 400;
-            letter-spacing: normal;
-            background-color: var(--canvas);
-            color: var(--on-canvas);
-        }
+  :root {
+    --bg:        oklch(8.2% 0.006 252);
+    --bg-dark:   oklch(6.8% 0.005 252);
+    --bg-rail:   oklch(7.4% 0.005 252);
+    --bg-card:   oklch(10%  0.006 252);
+    --fg:        oklch(96%  0.008  88);
+    --fg-2:      oklch(76%  0.007 145);
+    --fg-3:      oklch(58%  0.007 145);
+    --rule:      oklch(96%  0.008  88 / 0.10);
+    --rule-soft: oklch(96%  0.008  88 / 0.07);
+    --gold:      oklch(69%  0.10   75);
+    --gold-dim:  oklch(69%  0.10   75 / 0.35);
+    --f-display: 'Archivo', system-ui, sans-serif;
+    --f-body:    'Manrope', system-ui, sans-serif;
+    --f-mono:    'JetBrains Mono', monospace;
+  }
 
-        /* Navbar */
-        .navbar {
-            background-color: rgba(24, 29, 37, 0.95);
-            box-shadow: 0 1px 0 rgba(252, 252, 253, 0.08);
-            transition: all 0.3s ease;
-        }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--f-body);
+    -webkit-font-smoothing: antialiased;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--gold-dim); color: var(--fg); }
 
-        .navbar-brand {
-            font-weight: 400;
-            color: var(--on-canvas);
-        }
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: none; }
+  }
 
-        .nav-link {
-            font-weight: 400;
-            margin: 0 10px;
-            position: relative;
-            transition: all 0.3s ease;
-            color: var(--on-canvas) !important;
-        }
+  /* ── Shell ── */
+  .shell { display: flex; align-items: flex-start; min-height: 100vh; }
 
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--on-canvas);
-            transition: width 0.3s ease;
-        }
+  /* ── Rail ── */
+  .rail {
+    position: sticky;
+    top: 0;
+    flex: 0 0 300px;
+    width: 300px;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 48px 36px;
+    border-right: 1px solid var(--rule);
+    background: var(--bg-rail);
+    display: flex;
+    flex-direction: column;
+  }
 
-        .nav-link:hover:after {
-            width: 100%;
-        }
+  .rail-wordmark {
+    font-family: var(--f-display);
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: -.02em;
+    color: var(--fg);
+    line-height: 1.1;
+  }
+  .rail-role {
+    margin-top: 10px;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--fg-3);
+    line-height: 1.7;
+  }
 
-        .navbar.scrolled {
-            background-color: rgba(24, 29, 37, 0.98);
-            box-shadow: 0 1px 0 rgba(252, 252, 253, 0.12);
-        }
+  /* Rail nav */
+  .rail-nav { margin-top: 44px; display: flex; flex-direction: column; gap: 0; }
+  .rail-nav a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 9px 0;
+    font-family: var(--f-body);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--fg-2);
+    border-bottom: 1px solid transparent;
+    transition: color .18s, padding-left .18s;
+  }
+  .rail-nav a:hover { color: var(--fg); }
+  .rail-nav a.active { color: var(--gold); padding-left: 6px; }
+  .rail-nav a.active .rail-n { color: var(--gold); }
+  .rail-n {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    min-width: 20px;
+    transition: color .18s;
+  }
 
-        /* Project Filters */
-        .project-filters {
-            display: inline-flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+  /* Rail bottom */
+  .rail-bottom {
+    margin-top: auto;
+    padding-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .cv-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 15px;
+    border: 1px solid var(--gold);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    transition: background .18s, color .18s;
+  }
+  .cv-btn:hover { background: var(--gold); color: var(--bg); }
+  .rail-links { display: flex; gap: 20px; }
+  .rail-links a {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    transition: color .18s;
+  }
+  .rail-links a:hover { color: var(--fg); }
 
-        .project-filters button {
-            border-radius: var(--radius-pill);
-            padding: 8px 20px;
-            font-weight: 400;
-            transition: all 0.3s ease;
-        }
+  /* ── Main ── */
+  .main { flex: 1 1 auto; min-width: 0; }
 
-        .project-filters button.active {
-            background-color: var(--on-canvas);
-            color: var(--canvas);
-            border-color: var(--on-canvas);
-        }
+  /* ── Sections ── */
+  section { border-bottom: 1px solid var(--rule); }
+  .pad { padding: 88px 68px; }
+  .pad-hero { padding: 100px 68px 88px; }
+  .pad-contact { padding: 100px 68px 88px; }
+  .bg-dark { background: var(--bg-dark); }
 
-        .navbar-toggler {
-            border: none;
-            padding: 0;
-        }
+  /* Section marker */
+  .sec-mark {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 52px;
+  }
+  .sec-mark::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+  .sec-n {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: .14em;
+  }
+  .sec-title {
+    font-family: var(--f-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--fg-2);
+    margin: 0;
+  }
 
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(252,252,253,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-        }
+  /* ── Hero ── */
+  .hero-kicker {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+  .hero-hl {
+    margin: 0;
+    font-family: var(--f-display);
+    font-weight: 900;
+    font-size: clamp(44px, 6vw, 80px);
+    line-height: 1.0;
+    letter-spacing: -.03em;
+    color: var(--fg);
+    max-width: 14ch;
+  }
+  .hero-hl em {
+    font-style: italic;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .hero-body {
+    margin: 32px 0 0;
+    max-width: 54ch;
+    font-size: 17px;
+    line-height: 1.68;
+    color: var(--fg-2);
+    font-weight: 300;
+  }
+  .hero-meta {
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid var(--rule);
+    max-width: fit-content;
+  }
+  .hero-meta-item {
+    padding: 14px 24px;
+    border-right: 1px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--fg-2);
+    white-space: nowrap;
+  }
+  .hero-meta-item:last-child { border-right: none; }
+  .hero-meta-item strong {
+    display: block;
+    font-family: var(--f-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 3px;
+  }
 
-        .navbar-toggler:focus {
-            outline: none;
-            box-shadow: none;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: var(--canvas);
-            color: var(--on-canvas);
-            padding: 140px 0 100px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="rgba(252,252,253,0.04)"/></svg>') no-repeat bottom;
-            background-size: cover;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(252,252,253,0.03)" points="0,100 100,0 100,100"/></svg>');
-            background-size: cover;
-        }
-
-        .hero h1 {
-            font-size: 40px;
-            font-weight: 400;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-
-        .hero .lead {
-            font-size: 18px;
-            line-height: 1.555;
-            font-weight: 400;
-            margin-bottom: 2rem;
-        }
-
-        /* Section Titles */
-        .section-title {
-            font-size: 32px;
-            font-weight: 400;
-            line-height: 1.375;
-            margin-bottom: 3rem;
-            position: relative;
-            color: var(--on-canvas);
-        }
-
-        /* Project Cards */
-        .project-card {
-            transition: all 0.3s ease;
-            border: 1px solid rgba(252, 252, 253, 0.08);
-            margin-bottom: 30px;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: 0 0 12px var(--shadow-tint);
-            background: var(--canvas-soft);
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 0 24px var(--shadow-tint);
-        }
-
-        .tech-badge {
-            background: transparent;
-            color: var(--on-canvas);
-            margin: 3px;
-            padding: 4px 12px;
-            border-radius: var(--radius-pill);
-            border: 1px solid var(--on-canvas);
-            font-size: 12px;
-            font-weight: 400;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .tech-badge:hover {
-            background: var(--on-canvas);
-            color: var(--canvas);
-        }
-
-        /* Skills Matrix */
-        .skill-category {
-            background: var(--canvas-soft);
-            border-radius: var(--radius-lg);
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 0 12px var(--shadow-tint);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(252, 252, 253, 0.08);
-        }
-
-        .skill-category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 24px var(--shadow-tint);
-        }
-
-        .skill-item {
-            padding: 10px 18px;
-            margin: 6px;
-            background: transparent;
-            border-radius: var(--radius-pill);
-            font-weight: 400;
-            transition: all 0.3s ease;
-            border: 1px solid var(--hairline-soft);
-            display: inline-block;
-            color: var(--on-canvas);
-        }
-
-        .skill-item:hover {
-            background: var(--on-canvas);
-            color: var(--canvas);
-            border-color: var(--on-canvas);
-        }
-
-        /* Timeline */
-        .timeline {
-            border-left: 1px solid var(--hairline-soft);
-            padding-left: 35px;
-            position: relative;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: -1px;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: var(--hairline-soft);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 40px;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -42px;
-            top: 8px;
-            width: 20px;
-            height: 20px;
-            background: var(--canvas);
-            border-radius: 50%;
-            border: 1px solid var(--on-canvas);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInLeft {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes fadeInRight {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
-
-        .animate {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        .animate-left {
-            animation: fadeInLeft 0.8s ease-out forwards;
-        }
-
-        .animate-right {
-            animation: fadeInRight 0.8s ease-out forwards;
-        }
-
-        .animate-pulse {
-            animation: pulse 2s infinite;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 28px; }
-            .section-title { font-size: 24px; }
-            .timeline { padding-left: 25px; }
-            .timeline-item::before { left: -35px; }
-            .skill-category { padding: 20px; }
-            .tech-badge { font-size: 11px; padding: 3px 10px; }
-        }
-
-        /* Scroll Progress Bar */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: var(--on-canvas-soft);
-            z-index: 9999;
-            transition: width 0.3s ease;
-        }
-
-        /* Floating Action Button */
-        .scroll-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 48px;
-            height: 48px;
-            background: var(--on-canvas-soft);
-            color: var(--on-canvas);
-            border: 1px solid var(--on-canvas);
-            border-radius: var(--radius-pill);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            box-shadow: 0 0 12px var(--shadow-tint);
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 1000;
-        }
-
-        .scroll-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-to-top:hover {
-            background: var(--on-canvas);
-            color: var(--canvas);
-        }
-        .personal-intro {
-        border-left: 1px solid var(--hairline-soft);
-        padding-left: 1.5rem;
-        margin-bottom: 2rem;
-    }
-
-    .achievement-list {
-        list-style-type: none;
-        padding-left: 1.5rem;
-    }
-
-    .achievement-list li {
-        position: relative;
-        margin-bottom: 0.5rem;
-        padding-left: 1.5rem;
-        color: var(--on-canvas);
-    }
-
-    .achievement-list li::before {
-        content: "▹";
-        position: absolute;
-        left: 0;
-        color: var(--on-canvas-soft);
-    }
-
-    .timeline-item {
-        margin-bottom: 2.5rem;
-        padding: 2rem;
-        background: var(--canvas-soft);
-        border-radius: var(--radius-lg);
-        border: 1px solid rgba(252, 252, 253, 0.08);
-        transition: all 0.3s ease;
-    }
-
-    .timeline-item:hover {
-        background: var(--canvas-soft);
-        transform: translateX(5px);
-        box-shadow: 0 0 20px var(--shadow-tint);
-    }
-
-    .timeline-item h4 {
-        font-size: 24px;
-        font-weight: 400;
-        line-height: 1.5;
-        color: var(--on-canvas);
-    }
-
-    /* Contact Section */
-.contact-section {
-    background: var(--canvas-strong);
-    position: relative;
+  /* ── About ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 52px;
+    align-items: start;
+  }
+  .about-img-wrap {
+    border: 1px solid var(--rule-soft);
     overflow: hidden;
-}
+    background: oklch(11% 0.006 252);
+  }
+  .about-img-wrap img {
+    width: 100%;
+    display: block;
+    filter: grayscale(.6) contrast(1.05);
+    opacity: .9;
+    transition: filter .3s, opacity .3s;
+  }
+  .about-img-wrap:hover img { filter: grayscale(.2) contrast(1.05); opacity: 1; }
+  .about-caption {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    margin-top: 10px;
+  }
+  .about-lede {
+    margin: 0;
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.5;
+    color: oklch(93% 0.008 88);
+  }
+  .about-body {
+    margin: 24px 0 0;
+    font-size: 16px;
+    line-height: 1.72;
+    color: var(--fg-2);
+    font-weight: 300;
+  }
+  .about-tags {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    padding: 6px 13px;
+    border: 1px solid var(--rule-soft);
+    color: var(--fg-2);
+  }
+  .tag-gold { border-color: var(--gold-dim); color: var(--gold); }
 
-.contact-section::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    left: -50px;
-    width: 150px;
-    height: 150px;
-    background: rgba(252, 252, 253, 0.04);
-    border-radius: 50%;
-}
+  /* ── Research ── */
+  .pub-card {
+    border: 1px solid var(--rule-soft);
+    background: var(--bg-card);
+    padding: 44px 48px;
+    max-width: 860px;
+  }
+  .pub-venue {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: .1em;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .pub-title {
+    margin: 0;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: clamp(24px, 2.8vw, 36px);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    color: var(--fg);
+  }
+  .pub-conf {
+    margin: 20px 0 0;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--fg-3);
+  }
+  .pub-abstract {
+    margin: 24px 0 0;
+    max-width: 68ch;
+    font-size: 16px;
+    line-height: 1.72;
+    color: var(--fg-2);
+    font-weight: 300;
+  }
+  .pub-tags { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pub-divider {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .pub-link {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--fg);
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+    transition: color .18s;
+  }
+  .pub-link:hover { color: var(--gold); }
 
-.contact-section::after {
-    content: '';
-    position: absolute;
-    bottom: -80px;
-    right: -30px;
-    width: 200px;
-    height: 200px;
-    background: rgba(252, 252, 253, 0.04);
-    border-radius: 50%;
-}
-
-.contact-social {
-    color: var(--on-canvas);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    padding: 15px 24px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--on-canvas);
+  /* ── Work ── */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .filter-btn {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    padding: 7px 15px;
+    border: 1px solid var(--rule-soft);
     background: transparent;
-}
+    color: var(--fg-2);
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .filter-btn:hover { border-color: var(--fg-2); color: var(--fg); }
+  .filter-btn.active { border-color: var(--gold); background: var(--gold); color: var(--bg); }
 
-.contact-social:hover {
-    background: var(--on-canvas);
-    color: var(--canvas);
-}
+  .proj-list { border-top: 1px solid var(--rule-soft); margin-top: 8px; }
+  .proj-row { border-bottom: 1px solid var(--rule-soft); }
+  .proj-header {
+    display: grid;
+    grid-template-columns: 52px 1fr auto;
+    gap: 24px;
+    align-items: center;
+    padding: 24px 6px;
+    cursor: pointer;
+    transition: background .18s;
+  }
+  .proj-header:hover { background: oklch(96% 0.008 88 / 0.03); }
+  .proj-num {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--fg-3);
+  }
+  .proj-name {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.2;
+    color: var(--fg);
+  }
+  .proj-tagline {
+    margin-top: 5px;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--fg-3);
+  }
+  .proj-cat-label {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--gold);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .proj-sign {
+    font-size: 16px;
+    line-height: 1;
+    color: var(--fg-3);
+    transition: transform .2s;
+  }
+  .proj-body {
+    display: none;
+    padding: 0 6px 28px 76px;
+    grid-template-columns: 1fr auto;
+    gap: 28px;
+    align-items: end;
+    animation: riseIn .3s ease-out;
+  }
+  .proj-body.open { display: grid; }
+  .proj-desc {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--fg-2);
+    font-weight: 300;
+  }
+  .proj-tech { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tech-tag {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    border: 1px solid var(--rule-soft);
+    color: var(--fg-2);
+  }
+  .proj-link {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--fg);
+    border: 1px solid var(--rule-soft);
+    padding: 10px 16px;
+    white-space: nowrap;
+    transition: border-color .18s, color .18s;
+  }
+  .proj-link:hover { border-color: var(--gold); color: var(--gold); }
 
-.contact-item a {
-    color: var(--on-canvas);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
+  /* ── Trajectory ── */
+  .traj-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 32px;
+    padding: 28px 0;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .traj-period {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--gold);
+    padding-top: 4px;
+    line-height: 1.5;
+  }
+  .traj-role {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.25;
+    color: var(--fg);
+  }
+  .traj-org {
+    margin-top: 5px;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--fg-3);
+  }
+  .traj-note {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--fg-2);
+    max-width: 60ch;
+  }
 
-.contact-item a:hover {
-    color: var(--on-canvas-soft);
-}
+  /* ── Capabilities ── */
+  .cap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--rule-soft);
+  }
+  .cap-cell {
+    padding: 32px 28px;
+    border-right: 1px solid var(--rule-soft);
+  }
+  .cap-cell:last-child { border-right: none; }
+  .cap-label {
+    font-family: var(--f-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .cap-item {
+    font-family: var(--f-mono);
+    font-size: 13px;
+    color: var(--fg-2);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .cap-item:last-child { margin-bottom: 0; }
 
-/* Bootstrap component overrides — Audi design system */
-h1, h2, h3, h4, h5, h6 {
+  /* ── Contact ── */
+  .contact-hl {
+    margin: 0;
+    font-family: var(--f-display);
+    font-weight: 900;
+    font-size: clamp(36px, 5vw, 62px);
+    line-height: 1.0;
+    letter-spacing: -.03em;
+    color: var(--fg);
+    max-width: 16ch;
+  }
+  .contact-email {
+    display: inline-block;
+    margin-top: 28px;
+    font-family: var(--f-display);
+    font-style: italic;
     font-weight: 400;
-    letter-spacing: normal;
-}
+    font-size: clamp(20px, 2.4vw, 30px);
+    color: var(--gold);
+    border-bottom: 1px solid var(--gold-dim);
+    padding-bottom: 3px;
+    transition: border-color .18s;
+  }
+  .contact-email:hover { border-color: var(--gold); color: var(--gold); }
+  .contact-cards {
+    margin-top: 44px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .contact-card {
+    flex: 1;
+    min-width: 180px;
+    padding: 20px 22px;
+    border: 1px solid var(--rule-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--fg);
+    transition: border-color .18s;
+  }
+  .contact-card:hover { border-color: var(--fg-2); color: var(--fg); }
+  .contact-card-gold { border-color: var(--gold); color: var(--gold); }
+  .contact-card-gold:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+  .contact-card span:first-child {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: .06em;
+  }
+  .contact-card span:last-child { color: var(--fg-2); }
+  .contact-card-gold span:last-child { color: var(--gold); }
+  .contact-footer {
+    margin-top: 60px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule-soft);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--fg-3);
+  }
 
-.text-muted {
-    color: var(--on-canvas-soft) !important;
-}
-
-.card {
-    background-color: var(--canvas-soft);
-    color: var(--on-canvas);
-    border: 1px solid rgba(252, 252, 253, 0.08);
-    border-radius: var(--radius-lg);
-}
-
-.card-title {
-    color: var(--on-canvas);
-    font-size: 24px;
-    font-weight: 400;
-}
-
-.card-text {
-    color: var(--on-canvas);
-}
-
-.btn {
-    border-radius: var(--radius-pill);
-    font-weight: 400;
-    letter-spacing: normal;
-    padding: 12px 24px;
-}
-
-.btn-sm {
-    padding: 6px 16px;
-}
-
-.btn-primary {
-    background-color: var(--on-canvas-soft);
-    border-color: var(--on-canvas);
-    color: var(--on-canvas);
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-    background-color: var(--on-canvas);
-    border-color: var(--on-canvas);
-    color: var(--canvas);
-}
-
-.btn-outline-primary {
-    background-color: transparent;
-    border-color: var(--on-canvas);
-    color: var(--on-canvas);
-}
-
-.btn-outline-primary:hover,
-.btn-outline-primary.active {
-    background-color: var(--on-canvas);
-    border-color: var(--on-canvas);
-    color: var(--canvas);
-}
-
-.btn-outline-secondary {
-    background-color: transparent;
-    border-color: var(--hairline-soft);
-    color: var(--on-canvas);
-}
-
-.btn-outline-secondary:hover {
-    background-color: var(--on-canvas);
-    border-color: var(--on-canvas);
-    color: var(--canvas);
-}
-
-.btn-light {
-    background-color: var(--on-canvas);
-    border-color: var(--on-canvas);
-    color: var(--canvas);
-}
-
-.btn-light:hover {
-    background-color: transparent;
-    color: var(--on-canvas);
-}
-
-.btn-outline-light {
-    background-color: transparent;
-    border-color: var(--on-canvas);
-    color: var(--on-canvas);
-}
-
-.btn-outline-light:hover {
-    background-color: var(--on-canvas);
-    color: var(--canvas);
-}
-
-.btn-secondary {
-    background-color: transparent;
-    border-color: var(--hairline-soft);
-    color: var(--on-canvas);
-}
-
-.btn-secondary:hover {
-    background-color: var(--on-canvas);
-    border-color: var(--on-canvas);
-    color: var(--canvas);
-}
-
-.badge-primary,
-.badge-secondary {
-    background-color: transparent !important;
-    color: var(--on-canvas) !important;
-    border: 1px solid var(--on-canvas);
-    border-radius: var(--radius-pill);
-    font-weight: 400;
-    padding: 4px 12px;
-}
-
-.modal-content {
-    background-color: var(--canvas-soft);
-    color: var(--on-canvas);
-    border-radius: var(--radius-lg);
-    border: 1px solid rgba(252, 252, 253, 0.08);
-}
-
-.modal-header,
-.modal-footer {
-    border-color: rgba(252, 252, 253, 0.1);
-}
-
-.modal .close {
-    color: var(--on-canvas);
-    opacity: 0.8;
-    text-shadow: none;
-}
-
-.form-control {
-    background-color: transparent;
-    border: 1px solid var(--hairline-soft);
-    border-radius: var(--radius-sm);
-    color: var(--on-canvas);
-    height: 48px;
-}
-
-.form-control:focus {
-    background-color: transparent;
-    border-color: var(--on-canvas);
-    box-shadow: none;
-    color: var(--on-canvas);
-}
-
-.form-control::placeholder {
-    color: var(--on-canvas-soft);
-}
-
-textarea.form-control {
-    height: auto;
-}
-
-section.bg-light,
-footer.bg-light {
-    background-color: var(--canvas) !important;
-}
-
-.contact-section.bg-dark {
-    background-color: var(--canvas-strong) !important;
-}
-
-#about img.rounded-circle {
-    border: 1px solid var(--on-canvas);
-}
-
-footer small.text-muted {
-    color: var(--on-canvas-soft) !important;
-}
-    </style>
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .shell { flex-direction: column; }
+    .rail {
+      position: static;
+      width: 100%;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--rule);
+    }
+    .pad, .pad-hero, .pad-contact { padding: 60px 28px; }
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .cap-grid { grid-template-columns: 1fr; }
+    .cap-cell { border-right: none; border-bottom: 1px solid var(--rule-soft); }
+    .cap-cell:last-child { border-bottom: none; }
+    .traj-row { grid-template-columns: 1fr; gap: 6px; }
+    .traj-period { padding-top: 0; }
+    .proj-body { padding-left: 6px; grid-template-columns: 1fr; }
+    .hero-meta { flex-direction: column; max-width: 100%; }
+    .hero-meta-item { border-right: none; border-bottom: 1px solid var(--rule); width: 100%; }
+    .hero-meta-item:last-child { border-bottom: none; }
+  }
+  @media (max-width: 600px) {
+    .proj-header { grid-template-columns: 36px 1fr auto; gap: 12px; }
+    .pub-card { padding: 28px 24px; }
+  }
+</style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">Francesco Manco</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#projects">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#skills">Skills</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#publications">Publications</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
-                </li>
-            </ul>
-        </div>
+<div class="shell">
+
+  <!-- ── RAIL ── -->
+  <aside class="rail">
+    <div>
+      <div class="rail-wordmark">Francesco<br>Manco</div>
+      <div class="rail-role">AI Engineer<br>Researcher · Bari, IT</div>
     </div>
-</nav>
 
-<!-- Hero Section -->
-<section class="hero text-center">
-    <div class="container">
-        <h1 class="animate">Transforming Ideas with AI Solutions</h1>
-        <p class="lead animate" style="animation-delay: 0.2s;">MSc Computer Science Graduate Specializing in Machine Learning & Deep Learning</p>
-        <div style="animation-delay: 0.4s;" class="animate">
-            <a href="#projects" class="btn btn-lg btn-light mx-2 animate-pulse">View Projects</a>
-            <a href="#contact" class="btn btn-lg btn-outline-light mx-2">Contact Me</a>
-        </div>
-        <div class="mt-5 animate" style="animation-delay: 0.6s;">
-            <a href="#about" class="text-white">
-                <i class="fas fa-chevron-down fa-2x animate-pulse"></i>
-            </a>
-        </div>
-    </div>
-</section>
+    <nav class="rail-nav">
+      <a href="#about"        data-nav="about">       <span class="rail-n">01</span>About</a>
+      <a href="#research"     data-nav="research">    <span class="rail-n">02</span>Research</a>
+      <a href="#work"         data-nav="work">        <span class="rail-n">03</span>Selected Work</a>
+      <a href="#trajectory"   data-nav="trajectory">  <span class="rail-n">04</span>Trajectory</a>
+      <a href="#capabilities" data-nav="capabilities"><span class="rail-n">05</span>Capabilities</a>
+      <a href="#contact"      data-nav="contact">     <span class="rail-n">06</span>Contact</a>
+    </nav>
 
-
-<!-- About Section -->
-<section id="about" class="py-5" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 preserveAspectRatio=%22none%22%3E%3Ccircle cx=%2280%22 cy=%2220%22 r=%2220%22 fill=%22rgba(252,252,253,0.03)%22/%3E%3Ccircle cx=%2220%22 cy=%2280%22 r=%2230%22 fill=%22rgba(252,252,253,0.03)%22/%3E%3C/svg%3E'); background-size: cover;">
-    <div class="container">
-        <h2 class="section-title text-center">About Me</h2>
-        <div class="row align-items-center" data-aos="fade-up">
-            <div class="col-md-4 text-center mb-4">
-                <img src="images/1645642649696.jpeg" alt="Francesco Manco" 
-                     class="img-fluid rounded-circle shadow-lg" style="max-width: 250px;">
-            </div>
-            <div class="col-md-8">
-                <!-- Personal Description -->
-                <div class="personal-intro mb-5">
-                    <p class="lead" style="font-size: 1.1rem; line-height: 1.6; color: var(--on-canvas);">
-                        As an AI Engineer with expertise in Computer Vision, Natural Language Processing, and Quantum Computing, I specialize in bridging cutting-edge research with real-world applications. My work spans from multi-agent systems (e.g., Project Jarvis) to hybrid quantum-classical models, leveraging deep learning and clustering techniques for complex problem-solving. With a strong foundation in theoretical computer science, software engineering, and high-performance computing, I thrive at the intersection of innovation and implementation, developing scalable, transformative AI solutions that tackle real-world challenges.
-                    </p>
-                    <div class="signature mt-3" style="font-size: 14px; color: var(--on-canvas-soft);">
-                        Francesco Manco
-                    </div>
-                </div>
-
-                <!-- Education Timeline -->
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <h4>Bachelor's Degree in Computer Science and Software Production Technologies</h4>
-                        <p class="text-muted">University of Bari Aldo Moro | 2020 - 2023</p>
-                        <ul class="achievement-list">
-                            <li>🏆 Thesis: "Structured Process for Optimized Face Detection Systems"</li>
-                            <li>🎖️ Grade: 110/110 <i>cum laude</i></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <h4>MSc Computer Science - AI Specialization</h4>
-                        <p class="text-muted">University of Bari Aldo Moro | 2023 - 2025</p>
-                        <ul class="achievement-list">
-                            <li>🏆 Thesis: "Interpretable Emotion Clustering of Long Conversations via Unsupervised Audio Embeddings and LLMs"</li>
-                            <li>🎖️ Grade: 110/110 <i>cum laude and honorable mention</i></li>
-                        </ul>
-                    </div>
-
-                    <div class="timeline-item">
-                        <h4>Tirocinio Curriculare - Junior Data Scientist</h4>
-                        <p class="text-muted">Sidea Group, Bari | Marzo 2025 - Giugno 2025</p>
-                        <ul class="achievement-list">
-
-                        </ul>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <h4>Tirocinio - Junior Data Scientist</h4>
-                        <p class="text-muted">Sidea Group, Bari | Giugno 2025 - Settembre 2025</p>
-                        <ul class="achievement-list">
-                        </ul>
-                    </div>
-
-                    <div class="timeline-item">
-                        <h4>Junior Data Scientist - Contratto di Apprendistato</h4>
-                        <p class="text-muted">Sidea Group, Bari | Ottobre 2025 - Presente</p>
-                        <ul class="achievement-list">
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- CV Download -->
-                <div class="text-center mt-4">
-                    <a href="Manco_Francesco_CV.pdf" download class="btn btn-primary btn-lg">
-                        <i class="fas fa-download mr-2"></i>Download Full CV
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- Projects Section -->
-<section id="projects" class="projects-section py-5">
-  <div class="container">
-      <h2 class="section-title text-center mb-5">Featured Projects</h2>
-      
-      <!-- Project Filters -->
-      <div class="text-center mb-5" data-aos="fade-up">
-          <div class="btn-group project-filters">
-              <button type="button" class="btn btn-outline-primary active" data-filter="all">All</button>
-              <button type="button" class="btn btn-outline-primary" data-filter="ml">Machine Learning</button>
-              <button type="button" class="btn btn-outline-primary" data-filter="cv">Computer Vision</button>
-              <button type="button" class="btn btn-outline-primary" data-filter="nlp">NLP</button>
-              <button type="button" class="btn btn-outline-primary" data-filter="quantum">Quantum</button>
-          </div>
+    <div class="rail-bottom">
+      <a href="Manco_Francesco_CV.pdf" download class="cv-btn">
+        Download CV <span>↓</span>
+      </a>
+      <div class="rail-links">
+        <a href="https://github.com/FrancescoManco" target="_blank">GitHub ↗</a>
+        <a href="https://linkedin.com/in/francesco-manco-0b303518a" target="_blank">LinkedIn ↗</a>
       </div>
-      
-      <div class="row project-container">
+    </div>
+  </aside>
 
-          <!-- Employee Productivity Prediction -->
-          <div class="col-md-4 mb-4 project-item" data-category="ml" data-aos="fade-up">
-              <div class="card project-card h-100">
-                  <div class="card-body">
-                      <h5 class="card-title">Employee Productivity Prediction</h5>
-                      <div class="mb-3">
-                          <span class="tech-badge">Machine Learning</span>
-                          <span class="tech-badge">Python</span>
-                          <span class="tech-badge">Scikit-learn</span>
-                      </div>
-                      <p class="card-text">Classification system using UCI dataset to predict productivity levels.</p>
-                      <div class="d-flex justify-content-between mt-3">
-                          <a href="https://github.com/FrancescoManco/Employee-Productivity-Prediction.git" 
-                             class="btn btn-primary">
-                              <i class="fas fa-code mr-2"></i>View Code
-                          </a>
-                          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#projectModal" 
-                                  data-title="Employee Productivity Prediction" 
-                                  data-description="A machine learning classification system that uses the UCI Garment Manufacturing Productivity dataset to predict productivity levels based on various factors like work team, targeted productivity, and more. The project implements multiple algorithms including Random Forest, SVM, and Gradient Boosting to achieve high accuracy in predictions.">
-                              <i class="fas fa-info-circle"></i>
-                          </button>
-                      </div>
-                  </div>
-              </div>
-          </div>
+  <!-- ── MAIN ── -->
+  <main class="main">
 
-          <!-- Breast Cancer Diagnostic -->
-          <div class="col-md-4 mb-4 project-item" data-category="ml" data-aos="fade-up" data-aos-delay="100">
-              <div class="card project-card h-100">
-                  <div class="card-body">
-                      <h5 class="card-title">Breast Cancer Diagnostic</h5>
-                      <div class="mb-3">
-                          <span class="tech-badge">Healthcare AI</span>
-                          <span class="tech-badge">Feature Engineering</span>
-                          <span class="tech-badge">XGBoost</span>
-                      </div>
-                      <p class="card-text">ML pipeline for cancer type classification using ensemble methods.</p>
-                      <div class="d-flex justify-content-between mt-3">
-                          <a href="https://github.com/FrancescoManco/Breast-Cancer-Wisconsin--Diagnostic-.git" 
-                             class="btn btn-primary">
-                              <i class="fas fa-code mr-2"></i>View Code
-                          </a>
-                          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#projectModal" 
-                                  data-title="Breast Cancer Diagnostic" 
-                                  data-description="A machine learning pipeline for breast cancer classification using the Wisconsin Diagnostic dataset. The project implements feature engineering techniques and ensemble methods like XGBoost to accurately classify malignant and benign tumors based on cell nuclei characteristics.">
-                              <i class="fas fa-info-circle"></i>
-                          </button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <!-- Image Difference Captioning -->
-          <div class="col-md-4 mb-4 project-item" data-category="cv" data-aos="fade-up" data-aos-delay="200">
-              <div class="card project-card h-100">
-                  <div class="card-body">
-                      <h5 class="card-title">Artwork Difference Captioning</h5>
-                      <div class="mb-3">
-                          <span class="tech-badge">Computer Vision</span>
-                          <span class="tech-badge">Transformers</span>
-                          <span class="tech-badge">CLIP</span>
-                      </div>
-                      <p class="card-text">Multimodal AI system generating descriptive captions for artwork differences.</p>
-                      <div class="d-flex justify-content-between mt-3">
-                          <a href="https://github.com/FrancescoManco/Image-Difference-Captioning" 
-                             class="btn btn-primary">
-                              <i class="fas fa-code mr-2"></i>View Code
-                          </a>
-                          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#projectModal" 
-                                  data-title="Artwork Difference Captioning" 
-                                  data-description="A computer vision project that uses multimodal AI to generate descriptive captions for differences between artwork images. The system leverages CLIP and transformer architectures to understand visual differences and express them in natural language.">
-                              <i class="fas fa-info-circle"></i>
-                          </button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <!-- JARVIS -->
-          <div class="col-md-4 mb-4 project-item" data-category="nlp" data-aos="fade-up">
-              <div class="card project-card h-100">
-                  <div class="card-body">
-                      <h5 class="card-title">JARVIS AI Assistant</h5>
-                      <div class="mb-3">
-                          <span class="tech-badge">LLMs</span>
-                          <span class="tech-badge">RAG</span>
-                          <span class="tech-badge">Fine-tuning</span>
-                          <span class="tech-badge">AI Agent</span>
-                          <span class="tech-badge">LangChain/LangGraph</span>
-                      </div>
-                      <p class="card-text">Multi AI agent system with persistent memory and adaptive learning capabilities with LangChain and LangGraph. </p>
-                      <div class="d-flex justify-content-between mt-3">
-                          <a href="https://github.com/FrancescoManco/JARVIS" 
-                             class="btn btn-primary">
-                              <i class="fas fa-code mr-2"></i>View Code
-                          </a>
-                          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#projectModal" 
-                                  data-title="JARVIS AI Assistant" 
-                                  data-description="An advanced multi-agent AI system built with LangChain and LangGraph that features persistent memory and adaptive learning capabilities. JARVIS can understand context, learn from interactions, and perform complex tasks through a network of specialized AI agents working together.">
-                              <i class="fas fa-info-circle"></i>
-                          </button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <!-- Microbiome Analysis -->
-          <div class="col-md-4 mb-4 project-item" data-category="ml" data-aos="fade-up" data-aos-delay="100">
-              <div class="card project-card h-100">
-                  <div class="card-body">
-                      <h5 class="card-title">Microbiome Analysis Framework</h5>
-                      <div class="mb-3">
-                          <span class="tech-badge">Autoencoders</span>
-                          <span class="tech-badge">Bio-Informatics</span>
-                          <span class="tech-badge">PyTorch</span>
-                      </div>
-                      <p class="card-text">Novel approach for ASD detection through microbial analysis with Autoencoders and Decision Tree.</p>
-                      <div class="d-flex justify-content-between mt-3">
-                          <a href="https://github.com/FrancescoManco/Microbioma_Manco_Francesco" 
-                             class="btn btn-primary">
-                              <i class="fas fa-code mr-2"></i>View Code
-                          </a>
-                          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#projectModal" 
-                                  data-title="Microbiome Analysis Framework" 
-                                  data-description="A novel approach for Autism Spectrum Disorder (ASD) detection through microbial analysis using Autoencoders and Decision Tree algorithms. This bio-informatics project processes microbiome data to identify patterns associated with ASD, providing a potential diagnostic tool.">
-                              <i class="fas fa-info-circle"></i>
-                          </button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <!-- Quantum Metric Learning -->
-          <div class="col-md-4 mb-4 project-item" data-category="quantum" data-aos="fade-up" data-aos-delay="200">
-              <div class="card project-card h-100">
-                  <div class="card-body">
-                      <h5 class="card-title">Quantum Metric Learning</h5>
-                      <div class="mb-3">
-                          <span class="tech-badge">Quantum ML</span>
-                          <span class="tech-badge">PyTorch</span>
-                          <span class="tech-badge">Qiskit</span>
-                      </div>
-                      <p class="card-text">Hybrid quantum-classical model for clustering on MNIST.</p>
-                      <div class="d-flex justify-content-between mt-3">
-                          <a href="https://github.com/FrancescoManco/QuantumMetricLearning" 
-                             class="btn btn-primary">
-                              <i class="fas fa-code mr-2"></i>View Code
-                          </a>
-                          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#projectModal" 
-                                  data-title="Quantum Metric Learning" 
-                                  data-description="A hybrid quantum-classical model for clustering on the MNIST dataset. This project explores the potential of quantum computing for machine learning tasks, specifically using quantum circuits to enhance metric learning for image clustering.">
-                              <i class="fas fa-info-circle"></i>
-                          </button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
+    <!-- HERO -->
+    <section style="border-bottom:1px solid var(--rule)">
+      <div class="pad-hero">
+        <div class="hero-kicker">Computer Vision · NLP · Agentic Systems · Quantum ML</div>
+        <h1 class="hero-hl">Frontier <em>research</em> that ships.</h1>
+        <p class="hero-body">I design AI systems at the intersection of deep learning, multi-agent architectures and human-centered personalization — from published research on adaptive agentic models to production data science.</p>
+        <div class="hero-meta">
+          <div class="hero-meta-item"><strong>MSc</strong>110/110 cum laude</div>
+          <div class="hero-meta-item"><strong>ACM UMAP '25</strong>Published · 2025</div>
+          <div class="hero-meta-item"><strong>6+ projects</strong>Research &amp; applied</div>
+        </div>
       </div>
-  </div>
-</section>
+    </section>
 
-
-<!-- Publications Section -->
-<section id="publications" class="py-5" style="background: var(--canvas-deepest);">
-    <div class="container">
-        <h2 class="section-title text-center mb-5">Scientific Publications</h2>
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="card shadow-lg border-0 mb-4" data-aos="fade-up">
-                    <div class="card-body p-4">
-                        <div class="row">
-                            <div class="col-md-2 text-center mb-3">
-                                <div class="publication-icon p-3 rounded-circle" style="background: var(--canvas-soft); color: var(--on-canvas); border: 1px solid var(--on-canvas); display: inline-block;">
-                                    <i class="fas fa-file-alt fa-2x"></i>
-                                </div>
-                            </div>
-                            <div class="col-md-10">
-                                <h4 class="card-title mb-3" style="color: var(--on-canvas); font-weight: 400;">
-                                    JARVIS: Adaptive Dual-Hemisphere Architectures For Personalized Large Agentic Models
-                                </h4>
-                                <p class="text-muted mb-3">
-                                    <strong>Conference:</strong> Adjunct Proceedings of the 33rd ACM Conference on User Modeling, Adaptation and Personalization (UMAP Adjunct '25)
-                                </p>
-                                <p class="card-text mb-3" style="text-align: justify; line-height: 1.6;">
-                                    This paper proposes JARVIS, a novel approach to provide Large Language Models (LLMs) with enhanced personalization through a two-hemisphere architecture inspired by the biological organization of the human brain. The system follows a Large Agentic Model (LAM) architecture where the subjective hemisphere dynamically models user preferences and iteratively optimizes behaviors through a training phase grounded on LoRA (Low-Rank Adaptation), DPO (Direct Preference Optimization), human feedback, and synthetic data generation ("digital dreams").
-                                </p>
-                                <div class="mb-3">
-                                    <span class="badge badge-primary mr-2">Machine Learning</span>
-                                    <span class="badge badge-primary mr-2">AI Agents</span>
-                                    <span class="badge badge-primary mr-2">Personalization</span>
-                                    <span class="badge badge-primary mr-2">LLMs</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">
-                                        <i class="fas fa-calendar-alt mr-1"></i>2025
-                                    </small>
-                                    <div>
-                                        <a href="https://dl.acm.org/doi/abs/10.1145/3708319.3733674" target="_blank" class="btn btn-outline-primary btn-sm mr-2">
-                                            <i class="fas fa-external-link-alt mr-1"></i>View Paper
-                                        </a>
-                                        <span class="badge badge-secondary">
-                                            <i class="fas fa-university mr-1"></i>ACM Digital Library
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- 01 ABOUT -->
+    <section id="about" data-sec="about">
+      <div class="pad">
+        <div class="sec-mark">
+          <span class="sec-n">01</span>
+          <h2 class="sec-title">About</h2>
         </div>
-    </div>
-</section>
-
-<!-- Skills Section -->
-<section id="skills" class="py-5 bg-light">
-    <div class="container">
-        <h2 class="section-title text-center">Technical Skills</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="skill-category">
-                    <h4 class="mb-4"><i class="fas fa-brain mr-2"></i>AI/ML</h4>
-                    <div class="skill-item">Machine Learning</div>
-                    <div class="skill-item">Deep Learning</div>
-                    <div class="skill-item">Computer Vision</div>
-                    <div class="skill-item">Natural Language Processing</div>
-                    <div class="skill-item">Generative AI</div>
-                    <div class="skill-item">Quantum Computing</div>
-                    <div class="skill-item">Agent-Based AI</div>
-
-                </div>
+        <div class="about-grid">
+          <div>
+            <div class="about-img-wrap">
+              <img src="images/1645642649696.jpeg" alt="Francesco Manco, AI Engineer, Bari 2025">
             </div>
-            <div class="col-md-4">
-                <div class="skill-category">
-                    <h4 class="mb-4"><i class="fas fa-tools mr-2"></i>Frameworks</h4>
-                    <div class="skill-item">TensorFlow/Keras</div>
-                    <div class="skill-item">PyTorch </div>
-                    <div class="skill-item">Hugging Face </div>
-                    <div class="skill-item">OpenCV</div>
-                    <div class="skill-item">Qiskit</div>
-                    <div class="skill-item">TorchVision</div>
-                    <div class="skill-item">TorchAudio</div>
-                    <div class="skill-item">Pandas</div>
-                    <div class="skill-item">LangChain</div>
-                    <div class="skill-item">LangGraph</div>
-                    <div class="skill-item">Ollama</div>
-                </div>
+            <div class="about-caption">F. Manco — 2025</div>
+          </div>
+          <div>
+            <p class="about-lede">AI Engineer specializing in Computer Vision, NLP and Quantum Computing, bridging cutting-edge research with real-world applications.</p>
+            <p class="about-body">From multi-agent systems to hybrid quantum-classical models, I operate at the intersection of theoretical computer science, software engineering and high-performance computing — developing scalable AI solutions that tackle real-world challenges.</p>
+            <div class="about-tags">
+              <span class="tag">Deep Learning</span>
+              <span class="tag">Agentic AI</span>
+              <span class="tag">Personalization</span>
+              <span class="tag">HPC</span>
             </div>
-            <div class="col-md-4">
-                <div class="skill-category">
-                    <h4 class="mb-4"><i class="fas fa-chart-line mr-2"></i>MLOps</h4>
-                    <div class="skill-item">Docker</div>
-                    <div class="skill-item">DockerCompose</div>
-                    <div class="skill-item">GitHub Actions</div>
-                    <div class="skill-item">CI/CD</div>
-                    <div class="skill-item">MLflow</div>
-                    
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<!-- Contact Section -->
-<section id="contact" class="contact-section py-5 bg-dark text-white">
-    <div class="container">
-        <h2 class="section-title text-center mb-5" data-aos="fade-up">Get In Touch</h2>
-        <div class="row justify-content-center">
-            <div class="col-md-8 text-center" data-aos="fade-up">
-                <div class="contact-info">
-                    <div class="contact-item mb-4">
-                        <a href="mailto:francescomanco.2001@gmail.com" class="text-white">
-                            <i class="fas fa-envelope fa-2x mb-3"></i>
-                            <h4>Email</h4>
-                            <p>francescomanco.2001@gmail.com</p>
-                        </a>
-                    </div>
-                    
-                    <div class="contact-links d-flex justify-content-center gap-4">
-                        <a href="https://linkedin.com/in/francesco-manco-0b303518a" 
-                           target="_blank" 
-                           class="contact-social">
-                            <i class="fab fa-linkedin fa-2x"></i>
-                            <span class="d-block mt-2">LinkedIn</span>
-                        </a>
-                        
-                        <a href="https://github.com/FrancescoManco" 
-                           target="_blank" 
-                           class="contact-social">
-                            <i class="fab fa-github-square fa-2x"></i>
-                            <span class="d-block mt-2">GitHub</span>
-                        </a>
-                    </div>
-                    
-                    <div class="mt-5">
-                        <button class="btn btn-outline-light btn-lg" data-toggle="modal" data-target="#contactFormModal">
-                            <i class="fas fa-paper-plane mr-2"></i>Send Me a Message
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <!-- 02 RESEARCH -->
+    <section id="research" data-sec="research" class="bg-dark">
+      <div class="pad">
+        <div class="sec-mark">
+          <span class="sec-n">02</span>
+          <h2 class="sec-title">Research · Publication</h2>
         </div>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="py-4 bg-light">
-    <div class="container text-center">
-        <p class="mb-0">&copy; 2023 Francesco Manco. All rights reserved.</p>
-        <small class="text-muted">AI Engineer | Computer Vision Specialist | Generative AI Enthusiast</small>
-    </div>
-</footer>
-
-<!-- Project Modal -->
-<div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="projectModalLabel">Project Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="project-details-content">
-                    <!-- Content will be dynamically inserted here -->
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+        <div class="pub-card">
+          <div class="pub-venue">UMAP ADJUNCT '25 · ACM DIGITAL LIBRARY · 2025</div>
+          <h3 class="pub-title">JARVIS: Adaptive Dual-Hemisphere Architectures for Personalized Large Agentic Models</h3>
+          <p class="pub-conf">Adjunct Proceedings of the 33rd ACM Conference on User Modeling, Adaptation and Personalization</p>
+          <p class="pub-abstract">JARVIS proposes a novel approach to endow LLMs with enhanced personalization through a two-hemisphere architecture inspired by the biological organization of the human brain. Following a Large Agentic Model (LAM) design, the subjective hemisphere dynamically models user preferences and iteratively optimizes behavior via LoRA, Direct Preference Optimization, human feedback and synthetic data generation ("digital dreams").</p>
+          <div class="pub-tags">
+            <span class="tag tag-gold">LLMs</span>
+            <span class="tag tag-gold">AI Agents</span>
+            <span class="tag tag-gold">Personalization</span>
+            <span class="tag tag-gold">Machine Learning</span>
+          </div>
+          <div class="pub-divider">
+            <a href="https://dl.acm.org/doi/abs/10.1145/3708319.3733674" target="_blank" class="pub-link">Read the paper ↗</a>
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
+
+    <!-- 03 SELECTED WORK -->
+    <section id="work" data-sec="work">
+      <div class="pad">
+        <div class="sec-mark">
+          <span class="sec-n">03</span>
+          <h2 class="sec-title">Selected Work</h2>
+        </div>
+        <div class="filters" id="filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="ml">Machine Learning</button>
+          <button class="filter-btn" data-filter="cv">Computer Vision</button>
+          <button class="filter-btn" data-filter="nlp">NLP</button>
+          <button class="filter-btn" data-filter="quantum">Quantum</button>
+        </div>
+        <div class="proj-list" id="proj-list">
+
+          <div class="proj-row" data-cat="nlp">
+            <div class="proj-header" onclick="toggleProject(this)">
+              <span class="proj-num">01</span>
+              <div>
+                <div class="proj-name">JARVIS AI Assistant</div>
+                <div class="proj-tagline">Multi-agent system · persistent memory · adaptive learning</div>
+              </div>
+              <span class="proj-cat-label">NLP <span class="proj-sign">+</span></span>
+            </div>
+            <div class="proj-body open">
+              <div>
+                <p class="proj-desc">An advanced multi-agent AI system built with LangChain and LangGraph featuring persistent memory and adaptive learning. JARVIS understands context, learns from interactions and performs complex tasks through a network of specialized agents working together.</p>
+                <div class="proj-tech">
+                  <span class="tech-tag">LLMs</span><span class="tech-tag">RAG</span><span class="tech-tag">Fine-tuning</span><span class="tech-tag">LangChain</span><span class="tech-tag">LangGraph</span>
+                </div>
+              </div>
+              <a href="https://github.com/FrancescoManco/JARVIS" target="_blank" class="proj-link">View code ↗</a>
+            </div>
+          </div>
+
+          <div class="proj-row" data-cat="cv">
+            <div class="proj-header" onclick="toggleProject(this)">
+              <span class="proj-num">02</span>
+              <div>
+                <div class="proj-name">Artwork Difference Captioning</div>
+                <div class="proj-tagline">Multimodal captioning of visual differences</div>
+              </div>
+              <span class="proj-cat-label">Computer Vision <span class="proj-sign">+</span></span>
+            </div>
+            <div class="proj-body">
+              <div>
+                <p class="proj-desc">A computer-vision system using multimodal AI to generate descriptive captions for differences between artwork images, leveraging CLIP and transformer architectures to express visual change in natural language.</p>
+                <div class="proj-tech">
+                  <span class="tech-tag">CLIP</span><span class="tech-tag">Transformers</span><span class="tech-tag">PyTorch</span>
+                </div>
+              </div>
+              <a href="https://github.com/FrancescoManco/Image-Difference-Captioning" target="_blank" class="proj-link">View code ↗</a>
+            </div>
+          </div>
+
+          <div class="proj-row" data-cat="quantum">
+            <div class="proj-header" onclick="toggleProject(this)">
+              <span class="proj-num">03</span>
+              <div>
+                <div class="proj-name">Quantum Metric Learning</div>
+                <div class="proj-tagline">Hybrid quantum-classical clustering on MNIST</div>
+              </div>
+              <span class="proj-cat-label">Quantum <span class="proj-sign">+</span></span>
+            </div>
+            <div class="proj-body">
+              <div>
+                <p class="proj-desc">A hybrid quantum-classical model for clustering on MNIST, exploring quantum circuits to enhance metric learning for image clustering.</p>
+                <div class="proj-tech">
+                  <span class="tech-tag">Quantum ML</span><span class="tech-tag">Qiskit</span><span class="tech-tag">PyTorch</span>
+                </div>
+              </div>
+              <a href="https://github.com/FrancescoManco/QuantumMetricLearning" target="_blank" class="proj-link">View code ↗</a>
+            </div>
+          </div>
+
+          <div class="proj-row" data-cat="ml">
+            <div class="proj-header" onclick="toggleProject(this)">
+              <span class="proj-num">04</span>
+              <div>
+                <div class="proj-name">Microbiome Analysis Framework</div>
+                <div class="proj-tagline">ASD detection via microbial analysis</div>
+              </div>
+              <span class="proj-cat-label">ML <span class="proj-sign">+</span></span>
+            </div>
+            <div class="proj-body">
+              <div>
+                <p class="proj-desc">A novel approach for Autism Spectrum Disorder detection through microbial analysis using Autoencoders and Decision Trees, processing microbiome data to surface diagnostic patterns.</p>
+                <div class="proj-tech">
+                  <span class="tech-tag">Autoencoders</span><span class="tech-tag">Bio-Informatics</span><span class="tech-tag">PyTorch</span>
+                </div>
+              </div>
+              <a href="https://github.com/FrancescoManco/Microbioma_Manco_Francesco" target="_blank" class="proj-link">View code ↗</a>
+            </div>
+          </div>
+
+          <div class="proj-row" data-cat="ml">
+            <div class="proj-header" onclick="toggleProject(this)">
+              <span class="proj-num">05</span>
+              <div>
+                <div class="proj-name">Breast Cancer Diagnostic</div>
+                <div class="proj-tagline">Ensemble classification of tumor types</div>
+              </div>
+              <span class="proj-cat-label">ML <span class="proj-sign">+</span></span>
+            </div>
+            <div class="proj-body">
+              <div>
+                <p class="proj-desc">A machine-learning pipeline for breast-cancer classification on the Wisconsin Diagnostic dataset, using feature engineering and ensemble methods (XGBoost) to classify malignant and benign tumors from cell-nuclei characteristics.</p>
+                <div class="proj-tech">
+                  <span class="tech-tag">Healthcare AI</span><span class="tech-tag">Feature Engineering</span><span class="tech-tag">XGBoost</span>
+                </div>
+              </div>
+              <a href="https://github.com/FrancescoManco/Breast-Cancer-Wisconsin--Diagnostic-.git" target="_blank" class="proj-link">View code ↗</a>
+            </div>
+          </div>
+
+          <div class="proj-row" data-cat="ml">
+            <div class="proj-header" onclick="toggleProject(this)">
+              <span class="proj-num">06</span>
+              <div>
+                <div class="proj-name">Employee Productivity Prediction</div>
+                <div class="proj-tagline">Classification on UCI productivity data</div>
+              </div>
+              <span class="proj-cat-label">ML <span class="proj-sign">+</span></span>
+            </div>
+            <div class="proj-body">
+              <div>
+                <p class="proj-desc">A classification system on the UCI Garment Manufacturing Productivity dataset predicting productivity levels via Random Forest, SVM and Gradient Boosting.</p>
+                <div class="proj-tech">
+                  <span class="tech-tag">Machine Learning</span><span class="tech-tag">Python</span><span class="tech-tag">Scikit-learn</span>
+                </div>
+              </div>
+              <a href="https://github.com/FrancescoManco/Employee-Productivity-Prediction.git" target="_blank" class="proj-link">View code ↗</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 TRAJECTORY -->
+    <section id="trajectory" data-sec="trajectory" class="bg-dark">
+      <div class="pad">
+        <div class="sec-mark">
+          <span class="sec-n">04</span>
+          <h2 class="sec-title">Trajectory</h2>
+        </div>
+        <div>
+
+          <div class="traj-row">
+            <div class="traj-period">2025 — present</div>
+            <div>
+              <div class="traj-role">Junior Data Scientist · Apprenticeship</div>
+              <div class="traj-org">Sidea Group, Bari</div>
+              <div class="traj-note">Building production data-science and ML systems in an applied industry setting.</div>
+            </div>
+          </div>
+
+          <div class="traj-row">
+            <div class="traj-period">Mar — Sep 2025</div>
+            <div>
+              <div class="traj-role">Junior Data Scientist · Internship</div>
+              <div class="traj-org">Sidea Group, Bari</div>
+            </div>
+          </div>
+
+          <div class="traj-row">
+            <div class="traj-period">2023 — 2025</div>
+            <div>
+              <div class="traj-role">MSc Computer Science — AI Specialization</div>
+              <div class="traj-org">University of Bari Aldo Moro · 110/110 cum laude &amp; honorable mention</div>
+              <div class="traj-note">Thesis: "Interpretable Emotion Clustering of Long Conversations via Unsupervised Audio Embeddings and LLMs".</div>
+            </div>
+          </div>
+
+          <div class="traj-row">
+            <div class="traj-period">2020 — 2023</div>
+            <div>
+              <div class="traj-role">BSc Computer Science &amp; Software Production Technologies</div>
+              <div class="traj-org">University of Bari Aldo Moro · 110/110 cum laude</div>
+              <div class="traj-note">Thesis: "Structured Process for Optimized Face Detection Systems".</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 CAPABILITIES -->
+    <section id="capabilities" data-sec="capabilities">
+      <div class="pad">
+        <div class="sec-mark">
+          <span class="sec-n">05</span>
+          <h2 class="sec-title">Capabilities</h2>
+        </div>
+        <div class="cap-grid">
+          <div class="cap-cell">
+            <div class="cap-label">AI / ML</div>
+            <div class="cap-item">Machine Learning</div>
+            <div class="cap-item">Deep Learning</div>
+            <div class="cap-item">Computer Vision</div>
+            <div class="cap-item">Natural Language Processing</div>
+            <div class="cap-item">Generative AI</div>
+            <div class="cap-item">Quantum Computing</div>
+            <div class="cap-item">Agent-Based AI</div>
+          </div>
+          <div class="cap-cell">
+            <div class="cap-label">Frameworks</div>
+            <div class="cap-item">PyTorch</div>
+            <div class="cap-item">TensorFlow / Keras</div>
+            <div class="cap-item">Hugging Face</div>
+            <div class="cap-item">OpenCV</div>
+            <div class="cap-item">Qiskit</div>
+            <div class="cap-item">TorchVision · TorchAudio</div>
+            <div class="cap-item">LangChain · LangGraph</div>
+            <div class="cap-item">Ollama · Pandas</div>
+          </div>
+          <div class="cap-cell">
+            <div class="cap-label">MLOps</div>
+            <div class="cap-item">Docker · Compose</div>
+            <div class="cap-item">GitHub Actions</div>
+            <div class="cap-item">CI/CD</div>
+            <div class="cap-item">MLflow</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 CONTACT -->
+    <section id="contact" data-sec="contact" class="bg-dark" style="border-bottom:none">
+      <div class="pad-contact">
+        <div class="sec-mark">
+          <span class="sec-n">06</span>
+          <h2 class="sec-title">Contact</h2>
+        </div>
+        <h3 class="contact-hl">Let's build something worth publishing.</h3>
+        <a href="mailto:francescomanco.2001@gmail.com" class="contact-email">francescomanco.2001@gmail.com</a>
+        <div class="contact-cards">
+          <a href="https://linkedin.com/in/francesco-manco-0b303518a" target="_blank" class="contact-card">
+            <span>LinkedIn</span><span>↗</span>
+          </a>
+          <a href="https://github.com/FrancescoManco" target="_blank" class="contact-card">
+            <span>GitHub</span><span>↗</span>
+          </a>
+          <a href="Manco_Francesco_CV.pdf" download class="contact-card contact-card-gold">
+            <span>Download CV</span><span>↓</span>
+          </a>
+        </div>
+        <div class="contact-footer">
+          <span>© 2026 Francesco Manco</span>
+          <span>AI Engineer · Computer Vision · Generative AI</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
 </div>
 
-<!-- Contact Form Modal -->
-<div class="modal fade" id="contactFormModal" tabindex="-1" role="dialog" aria-labelledby="contactFormModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="contactFormModalLabel">Send Me a Message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" class="form-control" id="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Your Email</label>
-                        <input type="email" class="form-control" id="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea class="form-control" id="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.5/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    // Initialize AOS
-    AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true,
-        offset: 100
+  // Project accordion
+  function toggleProject(header) {
+    const body = header.nextElementSibling;
+    const sign = header.querySelector('.proj-sign');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    sign.textContent = isOpen ? '+' : '−';
+  }
+
+  // Project filter
+  document.getElementById('filters').addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    let visible = 0;
+    document.querySelectorAll('#proj-list .proj-row').forEach(row => {
+      const show = filter === 'all' || row.dataset.cat === filter;
+      row.style.display = show ? '' : 'none';
+      if (show) {
+        visible++;
+        row.querySelector('.proj-num').textContent = String(visible).padStart(2, '0');
+      }
     });
-    
-    // Progress Bar
-    function updateProgressBar() {
-        const scrollTop = window.pageYOffset;
-        const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = (scrollTop / documentHeight) * 100;
-        document.querySelector('.progress-bar').style.width = progress + '%';
-    }
-    
-    // Scroll to top functionality
-    function toggleScrollToTop() {
-        const scrollToTopBtn = document.querySelector('.scroll-to-top');
-        if (window.pageYOffset > 300) {
-            scrollToTopBtn.classList.add('visible');
-        } else {
-            scrollToTopBtn.classList.remove('visible');
-        }
-    }
+  });
 
-    // Navbar scroll behavior
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 50) {
-            $('.navbar').addClass('scrolled');
-        } else {
-            $('.navbar').removeClass('scrolled');
-        }
-        
-        // Update progress bar
-        updateProgressBar();
-        
-        // Toggle scroll to top button
-        toggleScrollToTop();
-    });
-
-    // Project filtering
-    $('.project-filters button').on('click', function() {
-        const filter = $(this).data('filter');
-        
-        // Update active button
-        $('.project-filters button').removeClass('active');
-        $(this).addClass('active');
-        
-        // Filter projects
-        if (filter === 'all') {
-            $('.project-item').show();
-        } else {
-            $('.project-item').hide();
-            $(`.project-item[data-category="${filter}"]`).show();
-        }
-        
-        // Refresh AOS
-        AOS.refresh();
-    });
-
-    // Project modal
-    $('#projectModal').on('show.bs.modal', function (event) {
-        const button = $(event.relatedTarget);
-        const title = button.data('title');
-        const description = button.data('description');
-        
-        const modal = $(this);
-        modal.find('.modal-title').text(title);
-        modal.find('.project-details-content').html(`
-            <h4>${title}</h4>
-            <p>${description}</p>
-        `);
-    });
-
-    // Contact form submission
-    $('#contactForm').on('submit', function(e) {
-        e.preventDefault();
-        // In a real implementation, you would send the form data to a server
-        alert('Thank you for your message! This is a demo form - in a real implementation, your message would be sent.');
-        $('#contactFormModal').modal('hide');
-        this.reset();
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                window.scrollTo({
-                    top: target.offsetTop - 70,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Intersection Observer for animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate');
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.project-card').forEach((el) => observer.observe(el));
+  // Nav active via IntersectionObserver
+  const navLinks = Array.from(document.querySelectorAll('[data-nav]'));
+  const setActive = id => navLinks.forEach(l => l.classList.toggle('active', l.dataset.nav === id));
+  const io = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.dataset.sec); }),
+    { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+  );
+  document.querySelectorAll('[data-sec]').forEach(s => io.observe(s));
 </script>
-<!-- Progress Bar -->
-<div class="progress-bar"></div>
-
-<!-- Scroll to Top Button -->
-<button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-    <i class="fas fa-arrow-up"></i>
-</button>
 
 </body>
 </html>
