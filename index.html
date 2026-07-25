@@ -385,6 +385,10 @@
   }
   .about-img-wrap img {
     width: 100%;
+    /* Required: the height attribute that reserves space against layout shift
+       is also a presentational hint, and without this it wins as a literal
+       800px and stretches the image. */
+    height: auto;
     display: block;
     filter: grayscale(.6) contrast(1.05);
     opacity: .9;
@@ -799,7 +803,10 @@
       padding-left: max(28px, env(safe-area-inset-left));
       padding-right: max(28px, env(safe-area-inset-right));
     }
+    /* Stacked, the portrait would run the full column width — 900px tall on a
+       tablet. It is an accent in this layout, not a hero image. */
     .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .about-img-wrap { max-width: 360px; }
     .cap-grid { grid-template-columns: 1fr; }
     .cap-cell { border-left: none; border-top: 1px solid var(--rule-soft); }
     .cap-cell:first-child { border-top: none; }
