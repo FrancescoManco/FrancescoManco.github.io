@@ -2,26 +2,48 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="AI Engineer · Agentic Systems · AWS Bedrock · RAG · Computer Vision · NLP">
 <title>Francesco Manco — AI Engineer</title>
+<meta name="theme-color" content="#010203">
+<link rel="canonical" href="https://francescomanco.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23010203'/%3E%3Cpath d='M6 25V7h9v2.6H8.9v5h5.4v2.6H8.9V25z' fill='%23c09250'/%3E%3Cpath d='M17.5 25V7h2.6l3.1 7.4L26.3 7h2.6v18h-2.5V13.2l-2.6 6.2h-1.2l-2.6-6.2V25z' fill='%23c09250'/%3E%3C/svg%3E">
+
+<!-- Social link previews -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Francesco Manco — AI Engineer">
+<meta property="og:description" content="AI/ML Engineer building agentic systems, RAG pipelines and cloud AI infrastructure. Published at ACM UMAP '25.">
+<meta property="og:url" content="https://francescomanco.github.io/">
+<meta property="og:image" content="https://francescomanco.github.io/images/1645642649696.jpeg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta property="og:image:alt" content="Francesco Manco">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Francesco Manco — AI Engineer">
+<meta name="twitter:description" content="AI/ML Engineer building agentic systems, RAG pipelines and cloud AI infrastructure. Published at ACM UMAP '25.">
+<meta name="twitter:image" content="https://francescomanco.github.io/images/1645642649696.jpeg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
 
   :root {
+    color-scheme: dark;
     --bg:        oklch(8.2% 0.006 252);
     --bg-dark:   oklch(6.8% 0.005 252);
     --bg-rail:   oklch(7.4% 0.005 252);
     --bg-card:   oklch(10%  0.006 252);
+    --bg-frame:  oklch(11%  0.006 252);
     --fg:        oklch(96%  0.008  88);
+    --fg-hi:     oklch(93%  0.008  88);
     --fg-2:      oklch(76%  0.007 145);
     --fg-3:      oklch(58%  0.007 145);
     --rule:      oklch(96%  0.008  88 / 0.10);
     --rule-soft: oklch(96%  0.008  88 / 0.07);
+    --wash:      oklch(96%  0.008  88 / 0.03);
     --gold:      oklch(69%  0.10   75);
     --gold-dim:  oklch(69%  0.10   75 / 0.35);
     --f-display: 'Archivo', system-ui, sans-serif;
@@ -40,13 +62,67 @@
   a { color: inherit; text-decoration: none; }
   ::selection { background: var(--gold-dim); color: var(--fg); }
 
+  /* Designed focus state — square, gold, matches the hairline language */
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  /* Enlarges the hit area of a small visual mark to 44px without moving it */
+  .hit-44 { position: relative; }
+  .hit-44::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 10;
+    padding: 14px 20px;
+    background: var(--gold);
+    color: var(--bg);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .skip:focus { left: 0; }
+
+  .vis-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
   @keyframes riseIn {
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: none; }
   }
 
+  /* Motion pared back to a plain fade; colour transitions stay, since they
+     carry state feedback rather than movement. */
+  @media (prefers-reduced-motion: reduce) {
+    @keyframes riseIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .about-img-wrap img,
+    .proj-header { transition-property: none; }
+  }
+
   /* ── Shell ── */
-  .shell { display: flex; align-items: flex-start; min-height: 100vh; }
+  .shell { display: flex; align-items: flex-start; min-height: 100vh; min-height: 100dvh; }
 
   /* ── Rail ── */
   .rail {
@@ -55,6 +131,7 @@
     flex: 0 0 300px;
     width: 300px;
     height: 100vh;
+    height: 100dvh;
     overflow-y: auto;
     padding: 48px 36px;
     border-right: 1px solid var(--rule);
@@ -91,7 +168,7 @@
     font-weight: 400;
     color: var(--fg-2);
     border-bottom: 1px solid transparent;
-    transition: color .18s, padding-left .18s;
+    transition: color .18s;
   }
   .rail-nav a:hover { color: var(--fg); }
   .rail-nav a.active { color: var(--gold); padding-left: 6px; }
@@ -134,12 +211,15 @@
     transition: color .18s;
   }
   .rail-links a:hover { color: var(--fg); }
+  .rail-links a:focus-visible { outline-offset: 6px; }
 
   /* ── Main ── */
   .main { flex: 1 1 auto; min-width: 0; }
 
   /* ── Sections ── */
-  section { border-bottom: 1px solid var(--rule); }
+  /* Scoped to direct children so nested sections (project bodies) stay clean */
+  .main > section { border-bottom: 1px solid var(--rule); }
+  .sec-last { border-bottom: none; }
   .pad { padding: 88px 68px; }
   .pad-hero { padding: 100px 68px 88px; }
   .pad-contact { padding: 100px 68px 88px; }
@@ -242,7 +322,7 @@
   .about-img-wrap {
     border: 1px solid var(--rule-soft);
     overflow: hidden;
-    background: oklch(11% 0.006 252);
+    background: var(--bg-frame);
   }
   .about-img-wrap img {
     width: 100%;
@@ -264,7 +344,7 @@
     font-weight: 400;
     font-size: 22px;
     line-height: 1.5;
-    color: oklch(93% 0.008 88);
+    color: var(--fg-hi);
   }
   .about-body {
     margin: 24px 0 0;
@@ -342,6 +422,7 @@
     transition: color .18s;
   }
   .pub-link:hover { color: var(--gold); }
+  .pub-link:focus-visible { outline-offset: 6px; }
 
   /* ── Work ── */
   .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
@@ -360,22 +441,31 @@
 
   .proj-list { border-top: 1px solid var(--rule-soft); margin-top: 8px; }
   .proj-row { border-bottom: 1px solid var(--rule-soft); }
+  .proj-h { margin: 0; font: inherit; font-weight: inherit; }
   .proj-header {
     display: grid;
     grid-template-columns: 52px 1fr auto;
     gap: 24px;
     align-items: center;
+    width: 100%;
     padding: 24px 6px;
+    background: none;
+    border: 0;
+    font: inherit;
+    color: inherit;
+    text-align: left;
     cursor: pointer;
     transition: background .18s;
   }
-  .proj-header:hover { background: oklch(96% 0.008 88 / 0.03); }
+  .proj-header:hover { background: var(--wash); }
+  .proj-header:focus-visible { outline-offset: -2px; }
   .proj-num {
     font-family: var(--f-mono);
     font-size: 12px;
     color: var(--fg-3);
   }
   .proj-name {
+    display: block;
     font-family: var(--f-display);
     font-weight: 600;
     font-size: 22px;
@@ -383,6 +473,7 @@
     color: var(--fg);
   }
   .proj-tagline {
+    display: block;
     margin-top: 5px;
     font-family: var(--f-mono);
     font-size: 12px;
@@ -401,8 +492,10 @@
     font-size: 16px;
     line-height: 1;
     color: var(--fg-3);
-    transition: transform .2s;
   }
+  /* Glyph derives from the button's own state, so it cannot fall out of sync */
+  .proj-header[aria-expanded="false"] .proj-sign::before { content: '+'; }
+  .proj-header[aria-expanded="true"]  .proj-sign::before { content: '\2212'; }
   .proj-body {
     display: none;
     padding: 0 6px 28px 76px;
@@ -483,11 +576,18 @@
     grid-template-columns: repeat(3, 1fr);
     border: 1px solid var(--rule-soft);
   }
+  /* Rules live on each cell's top and left edge, so an incomplete final row
+     never doubles the frame border or leaves an unclosed cell. */
   .cap-cell {
     padding: 32px 28px;
-    border-right: 1px solid var(--rule-soft);
+    border-top: 1px solid var(--rule-soft);
+    border-left: 1px solid var(--rule-soft);
   }
-  .cap-cell:last-child { border-right: none; }
+  .cap-cell:nth-child(3n+1) { border-left: none; }
+  .cap-cell:nth-child(-n+3) { border-top: none; }
+  /* Five cells in three columns: the last one takes the spare track, which
+     also gives the longest items room to sit on one line. */
+  .cap-cell:last-child { grid-column: span 2; }
   .cap-label {
     font-family: var(--f-display);
     font-size: 12px;
@@ -505,6 +605,8 @@
     line-height: 1.3;
   }
   .cap-item:last-child { margin-bottom: 0; }
+  .cap-item-gold { color: var(--gold); }
+  .cap-item-note { font-size: 0.75em; color: var(--fg-3); }
 
   /* ── Contact ── */
   .contact-hl {
@@ -519,11 +621,13 @@
   }
   .contact-email {
     display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
     margin-top: 28px;
     font-family: var(--f-display);
     font-style: italic;
     font-weight: 400;
-    font-size: clamp(20px, 2.4vw, 30px);
+    font-size: clamp(17px, 2.4vw, 30px);
     color: var(--gold);
     border-bottom: 1px solid var(--gold-dim);
     padding-bottom: 3px;
@@ -572,7 +676,11 @@
 
   /* ── Responsive ── */
   @media (max-width: 960px) {
-    .shell { flex-direction: column; }
+    /* align-items on a column flex container governs WIDTH: flex-start stops
+       .main from filling the viewport, which is what caused the page to sit at
+       a fixed 402px and scroll sideways on every phone. */
+    .shell { flex-direction: column; align-items: stretch; }
+    .main { width: 100%; }
     .rail {
       position: static;
       width: 100%;
@@ -580,11 +688,16 @@
       border-right: none;
       border-bottom: 1px solid var(--rule);
     }
-    .pad, .pad-hero, .pad-contact { padding: 60px 28px; }
+    .pad, .pad-hero, .pad-contact {
+      padding-block: 60px;
+      padding-left: max(28px, env(safe-area-inset-left));
+      padding-right: max(28px, env(safe-area-inset-right));
+    }
     .about-grid { grid-template-columns: 1fr; gap: 36px; }
     .cap-grid { grid-template-columns: 1fr; }
-    .cap-cell { border-right: none; border-bottom: 1px solid var(--rule-soft); }
-    .cap-cell:last-child { border-bottom: none; }
+    .cap-cell { border-left: none; border-top: 1px solid var(--rule-soft); }
+    .cap-cell:first-child { border-top: none; }
+    .cap-cell:last-child { grid-column: auto; }
     .traj-row { grid-template-columns: 1fr; gap: 6px; }
     .traj-period { padding-top: 0; }
     .proj-body { padding-left: 6px; grid-template-columns: 1fr; }
@@ -594,11 +707,22 @@
   }
   @media (max-width: 600px) {
     .proj-header { grid-template-columns: 36px 1fr auto; gap: 12px; }
+    .proj-header > * { min-width: 0; }
+    /* Let the category wrap instead of forcing the row wider than the screen */
+    .proj-cat-label { white-space: normal; text-align: right; }
     .pub-card { padding: 28px 24px; }
+  }
+  /* Touch input, not screen width, is what makes a small target hard to hit */
+  @media (pointer: coarse) {
+    .rail-nav a { padding: 12px 0; }
+    .filter-btn { min-height: 44px; }
+    .proj-link { min-height: 44px; display: inline-flex; align-items: center; }
   }
 </style>
 </head>
 <body>
+
+<a href="#main" class="skip">Skip to content</a>
 
 <div class="shell">
 
@@ -609,7 +733,7 @@
       <div class="rail-role">AI/ML Engineer · R&amp;D<br>Sidea Group · Bari, IT</div>
     </div>
 
-    <nav class="rail-nav">
+    <nav class="rail-nav" aria-label="Sections">
       <a href="#about"        data-nav="about">       <span class="rail-n">01</span>About</a>
       <a href="#trajectory"   data-nav="trajectory">  <span class="rail-n">02</span>Trajectory</a>
       <a href="#research"     data-nav="research">    <span class="rail-n">03</span>Research</a>
@@ -623,17 +747,17 @@
         Download CV <span>↓</span>
       </a>
       <div class="rail-links">
-        <a href="https://github.com/FrancescoManco" target="_blank">GitHub ↗</a>
-        <a href="https://linkedin.com/in/francesco-manco-0b303518a" target="_blank">LinkedIn ↗</a>
+        <a href="https://github.com/FrancescoManco" target="_blank" rel="noopener noreferrer" class="hit-44">GitHub ↗</a>
+        <a href="https://linkedin.com/in/francesco-manco-0b303518a" target="_blank" rel="noopener noreferrer" class="hit-44">LinkedIn ↗</a>
       </div>
     </div>
   </aside>
 
   <!-- ── MAIN ── -->
-  <main class="main">
+  <main class="main" id="main">
 
     <!-- HERO -->
-    <section style="border-bottom:1px solid var(--rule)">
+    <section>
       <div class="pad-hero">
         <div class="hero-kicker">Agentic AI Systems · RAG · AWS Bedrock · Computer Vision · NLP</div>
         <h1 class="hero-hl">Frontier <em>research</em> that ships.</h1>
@@ -656,7 +780,8 @@
         <div class="about-grid">
           <div>
             <div class="about-img-wrap">
-              <img src="images/1645642649696.jpeg" alt="Francesco Manco, AI Engineer, Bari 2025">
+              <img src="images/1645642649696.jpeg" alt="Francesco Manco, AI Engineer, Bari 2025"
+                   width="800" height="800" loading="lazy" decoding="async">
             </div>
             <div class="about-caption">F. Manco — 2025</div>
           </div>
@@ -743,7 +868,7 @@
             <span class="tag tag-gold">Machine Learning</span>
           </div>
           <div class="pub-divider">
-            <a href="https://dl.acm.org/doi/abs/10.1145/3708319.3733674" target="_blank" class="pub-link">Read the paper ↗</a>
+            <a href="https://dl.acm.org/doi/abs/10.1145/3708319.3733674" target="_blank" rel="noopener noreferrer" class="pub-link hit-44">Read the paper ↗</a>
           </div>
         </div>
       </div>
@@ -756,130 +881,143 @@
           <span class="sec-n">04</span>
           <h2 class="sec-title">Selected Work</h2>
         </div>
-        <div class="filters" id="filters">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="agentic">Agentic AI</button>
-          <button class="filter-btn" data-filter="ml">Machine Learning</button>
-          <button class="filter-btn" data-filter="cv">Computer Vision</button>
-          <button class="filter-btn" data-filter="quantum">Quantum</button>
+        <div class="filters" id="filters" role="group" aria-label="Filter projects by domain">
+          <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" class="filter-btn" data-filter="agentic" aria-pressed="false">Agentic AI</button>
+          <button type="button" class="filter-btn" data-filter="ml" aria-pressed="false">Machine Learning</button>
+          <button type="button" class="filter-btn" data-filter="cv" aria-pressed="false">Computer Vision</button>
+          <button type="button" class="filter-btn" data-filter="quantum" aria-pressed="false">Quantum</button>
         </div>
+        <p class="vis-hidden" role="status" id="filter-status"></p>
         <div class="proj-list" id="proj-list">
 
           <div class="proj-row" data-cat="agentic">
-            <div class="proj-header" onclick="toggleProject(this)">
-              <span class="proj-num">01</span>
-              <div>
-                <div class="proj-name">Agentic Social Intelligence Platform</div>
-                <div class="proj-tagline">Multi-agent pipeline · trend analysis · content generation · AWS Bedrock</div>
-              </div>
-              <span class="proj-cat-label">Agentic <span class="proj-sign">+</span></span>
-            </div>
-            <div class="proj-body open">
+            <h3 class="proj-h">
+              <button type="button" class="proj-header" id="proj-btn-01" aria-expanded="true" aria-controls="proj-body-01">
+                <span class="proj-num">01</span>
+                <span>
+                  <span class="proj-name">Agentic Social Intelligence Platform</span>
+                  <span class="proj-tagline">Multi-agent pipeline · trend analysis · content generation · AWS Bedrock</span>
+                </span>
+                <span class="proj-cat-label">Agentic <span class="proj-sign"></span></span>
+              </button>
+            </h3>
+            <section class="proj-body open" id="proj-body-01" aria-labelledby="proj-btn-01">
               <div>
                 <p class="proj-desc">Production multi-agent system for Instagram trend intelligence and social content generation. Orchestrates scraping pipelines (Apify), LLM agents on AWS Bedrock/AgentCore, brand context via Notion MCP and a Streamlit frontend with real-time SSE streaming. Data persistence on Supabase with multi-tenant isolation.</p>
                 <div class="proj-tech">
                   <span class="tech-tag">AWS Bedrock</span><span class="tech-tag">AgentCore</span><span class="tech-tag">Apify</span><span class="tech-tag">Streamlit</span><span class="tech-tag">Supabase</span><span class="tech-tag">Notion MCP</span><span class="tech-tag">SSE</span>
                 </div>
               </div>
-            </div>
+            </section>
           </div>
 
           <div class="proj-row" data-cat="agentic">
-            <div class="proj-header" onclick="toggleProject(this)">
-              <span class="proj-num">02</span>
-              <div>
-                <div class="proj-name">On-Premise RAG for Legal Documents</div>
-                <div class="proj-tagline">Local LLM · vector search · Italian fiscal law · fully air-gapped</div>
-              </div>
-              <span class="proj-cat-label">Agentic <span class="proj-sign">+</span></span>
-            </div>
-            <div class="proj-body">
+            <h3 class="proj-h">
+              <button type="button" class="proj-header" id="proj-btn-02" aria-expanded="false" aria-controls="proj-body-02">
+                <span class="proj-num">02</span>
+                <span>
+                  <span class="proj-name">On-Premise RAG for Legal Documents</span>
+                  <span class="proj-tagline">Local LLM · vector search · Italian fiscal law · fully air-gapped</span>
+                </span>
+                <span class="proj-cat-label">Agentic <span class="proj-sign"></span></span>
+              </button>
+            </h3>
+            <section class="proj-body" id="proj-body-02" aria-labelledby="proj-btn-02">
               <div>
                 <p class="proj-desc">On-premise retrieval-augmented generation system for querying Italian fiscal regulations (Normattiva open data). Runs entirely local: Qwen2.5 via Ollama, BAAI/bge-m3 embeddings, Qdrant vector store, LlamaIndex orchestration, FastAPI backend and Streamlit UI. Zero cloud dependency by design.</p>
                 <div class="proj-tech">
                   <span class="tech-tag">Ollama</span><span class="tech-tag">Qwen2.5</span><span class="tech-tag">BAAI/bge-m3</span><span class="tech-tag">Qdrant</span><span class="tech-tag">LlamaIndex</span><span class="tech-tag">FastAPI</span><span class="tech-tag">Streamlit</span>
                 </div>
               </div>
-            </div>
+            </section>
           </div>
 
           <div class="proj-row" data-cat="ml">
-            <div class="proj-header" onclick="toggleProject(this)">
-              <span class="proj-num">03</span>
-              <div>
-                <div class="proj-name">Tourism Recommendation &amp; MarTech Platform</div>
-                <div class="proj-tagline">K-Prototypes clustering · LLM itinerary generation · AWS Medallion architecture</div>
-              </div>
-              <span class="proj-cat-label">ML <span class="proj-sign">+</span></span>
-            </div>
-            <div class="proj-body">
+            <h3 class="proj-h">
+              <button type="button" class="proj-header" id="proj-btn-03" aria-expanded="false" aria-controls="proj-body-03">
+                <span class="proj-num">03</span>
+                <span>
+                  <span class="proj-name">Tourism Recommendation &amp; MarTech Platform</span>
+                  <span class="proj-tagline">K-Prototypes clustering · LLM itinerary generation · AWS Medallion architecture</span>
+                </span>
+                <span class="proj-cat-label">ML <span class="proj-sign"></span></span>
+              </button>
+            </h3>
+            <section class="proj-body" id="proj-body-03" aria-labelledby="proj-btn-03">
               <div>
                 <p class="proj-desc">Research and production system combining unsupervised clustering (K-Prototypes with soft assignment) and LLM-driven itinerary generation for regional tourism in Puglia. Companion MarTech platform on AWS Medallion architecture with RFM segmentation, CLV modeling, churn prediction and engagement scoring.</p>
                 <div class="proj-tech">
                   <span class="tech-tag">K-Prototypes</span><span class="tech-tag">AWS S3</span><span class="tech-tag">Medallion Architecture</span><span class="tech-tag">LLM</span><span class="tech-tag">RFM</span><span class="tech-tag">Python</span>
                 </div>
               </div>
-            </div>
+            </section>
           </div>
 
           <div class="proj-row" data-cat="agentic">
-            <div class="proj-header" onclick="toggleProject(this)">
-              <span class="proj-num">04</span>
-              <div>
-                <div class="proj-name">JARVIS AI Assistant</div>
-                <div class="proj-tagline">Multi-agent system · persistent memory · adaptive learning</div>
-              </div>
-              <span class="proj-cat-label">Agentic <span class="proj-sign">+</span></span>
-            </div>
-            <div class="proj-body">
+            <h3 class="proj-h">
+              <button type="button" class="proj-header" id="proj-btn-04" aria-expanded="false" aria-controls="proj-body-04">
+                <span class="proj-num">04</span>
+                <span>
+                  <span class="proj-name">JARVIS AI Assistant</span>
+                  <span class="proj-tagline">Multi-agent system · persistent memory · adaptive learning</span>
+                </span>
+                <span class="proj-cat-label">Agentic <span class="proj-sign"></span></span>
+              </button>
+            </h3>
+            <section class="proj-body" id="proj-body-04" aria-labelledby="proj-btn-04">
               <div>
                 <p class="proj-desc">Advanced multi-agent AI system built with LangChain and LangGraph featuring persistent memory and adaptive learning. The architecture (published at ACM UMAP '25) introduces a dual-hemisphere design: a subjective hemisphere that models user preferences via LoRA fine-tuning, DPO and synthetic data generation.</p>
                 <div class="proj-tech">
                   <span class="tech-tag">LLMs</span><span class="tech-tag">RAG</span><span class="tech-tag">Fine-tuning</span><span class="tech-tag">LangChain</span><span class="tech-tag">LangGraph</span><span class="tech-tag">DPO</span>
                 </div>
               </div>
-              <a href="https://github.com/FrancescoManco/JARVIS" target="_blank" class="proj-link">View code ↗</a>
-            </div>
+              <a href="https://github.com/FrancescoManco/JARVIS" target="_blank" rel="noopener noreferrer" class="proj-link">View code ↗</a>
+            </section>
           </div>
 
           <div class="proj-row" data-cat="cv">
-            <div class="proj-header" onclick="toggleProject(this)">
-              <span class="proj-num">05</span>
-              <div>
-                <div class="proj-name">Artwork Difference Captioning</div>
-                <div class="proj-tagline">Multimodal captioning of visual differences · CLIP · Transformers</div>
-              </div>
-              <span class="proj-cat-label">Computer Vision <span class="proj-sign">+</span></span>
-            </div>
-            <div class="proj-body">
+            <h3 class="proj-h">
+              <button type="button" class="proj-header" id="proj-btn-05" aria-expanded="false" aria-controls="proj-body-05">
+                <span class="proj-num">05</span>
+                <span>
+                  <span class="proj-name">Artwork Difference Captioning</span>
+                  <span class="proj-tagline">Multimodal captioning of visual differences · CLIP · Transformers</span>
+                </span>
+                <span class="proj-cat-label">Computer Vision <span class="proj-sign"></span></span>
+              </button>
+            </h3>
+            <section class="proj-body" id="proj-body-05" aria-labelledby="proj-btn-05">
               <div>
                 <p class="proj-desc">Computer-vision system generating descriptive captions for differences between artwork images. Leverages CLIP and transformer architectures to understand visual change and express it in natural language — combining retrieval and generation in a single multimodal pipeline.</p>
                 <div class="proj-tech">
                   <span class="tech-tag">CLIP</span><span class="tech-tag">Transformers</span><span class="tech-tag">PyTorch</span>
                 </div>
               </div>
-              <a href="https://github.com/FrancescoManco/Image-Difference-Captioning" target="_blank" class="proj-link">View code ↗</a>
-            </div>
+              <a href="https://github.com/FrancescoManco/Image-Difference-Captioning" target="_blank" rel="noopener noreferrer" class="proj-link">View code ↗</a>
+            </section>
           </div>
 
           <div class="proj-row" data-cat="quantum">
-            <div class="proj-header" onclick="toggleProject(this)">
-              <span class="proj-num">06</span>
-              <div>
-                <div class="proj-name">Quantum Metric Learning</div>
-                <div class="proj-tagline">Hybrid quantum-classical clustering on MNIST</div>
-              </div>
-              <span class="proj-cat-label">Quantum <span class="proj-sign">+</span></span>
-            </div>
-            <div class="proj-body">
+            <h3 class="proj-h">
+              <button type="button" class="proj-header" id="proj-btn-06" aria-expanded="false" aria-controls="proj-body-06">
+                <span class="proj-num">06</span>
+                <span>
+                  <span class="proj-name">Quantum Metric Learning</span>
+                  <span class="proj-tagline">Hybrid quantum-classical clustering on MNIST</span>
+                </span>
+                <span class="proj-cat-label">Quantum <span class="proj-sign"></span></span>
+              </button>
+            </h3>
+            <section class="proj-body" id="proj-body-06" aria-labelledby="proj-btn-06">
               <div>
                 <p class="proj-desc">Hybrid quantum-classical model for clustering on MNIST, using quantum circuits to enhance metric learning for image representation. Explores the practical boundary between quantum advantage and classical performance on real datasets.</p>
                 <div class="proj-tech">
                   <span class="tech-tag">Quantum ML</span><span class="tech-tag">Qiskit</span><span class="tech-tag">PyTorch</span>
                 </div>
               </div>
-              <a href="https://github.com/FrancescoManco/QuantumMetricLearning" target="_blank" class="proj-link">View code ↗</a>
-            </div>
+              <a href="https://github.com/FrancescoManco/QuantumMetricLearning" target="_blank" rel="noopener noreferrer" class="proj-link">View code ↗</a>
+            </section>
           </div>
 
         </div>
@@ -930,7 +1068,7 @@
           </div>
           <div class="cap-cell">
             <div class="cap-label">Certifications</div>
-            <div class="cap-item" style="color:var(--gold)">AWS AI Practitioner <span style="font-size:0.75em;color:var(--fg-3)">(in progress)</span></div>
+            <div class="cap-item cap-item-gold">AWS AI Practitioner <span class="cap-item-note">(in progress)</span></div>
             <div class="cap-item">Prompt Engineering · RAG · Responsible AI</div>
             <div class="cap-item">Foundation Models · Amazon Bedrock</div>
             <div class="cap-item">AI/ML on AWS · MLOps principles</div>
@@ -940,7 +1078,7 @@
     </section>
 
     <!-- 06 CONTACT -->
-    <section id="contact" data-sec="contact" class="bg-dark" style="border-bottom:none">
+    <section id="contact" data-sec="contact" class="bg-dark sec-last">
       <div class="pad-contact">
         <div class="sec-mark">
           <span class="sec-n">06</span>
@@ -949,10 +1087,10 @@
         <h3 class="contact-hl">Let's build something that ships.</h3>
         <a href="mailto:francescomanco.2001@gmail.com" class="contact-email">francescomanco.2001@gmail.com</a>
         <div class="contact-cards">
-          <a href="https://linkedin.com/in/francesco-manco-0b303518a" target="_blank" class="contact-card">
+          <a href="https://linkedin.com/in/francesco-manco-0b303518a" target="_blank" rel="noopener noreferrer" class="contact-card">
             <span>LinkedIn</span><span>↗</span>
           </a>
-          <a href="https://github.com/FrancescoManco" target="_blank" class="contact-card">
+          <a href="https://github.com/FrancescoManco" target="_blank" rel="noopener noreferrer" class="contact-card">
             <span>GitHub</span><span>↗</span>
           </a>
           <a href="Manco_Francesco_CV.pdf" download class="contact-card contact-card-gold">
@@ -970,31 +1108,40 @@
 </div>
 
 <script>
-  // Project accordion
-  function toggleProject(header) {
-    const body = header.nextElementSibling;
-    const sign = header.querySelector('.proj-sign');
-    const isOpen = body.classList.contains('open');
-    body.classList.toggle('open', !isOpen);
-    sign.textContent = isOpen ? '+' : '−';
-  }
+  const projList = document.getElementById('proj-list');
+
+  // Project accordion. aria-expanded is the single source of truth: the open
+  // class and the +/− glyph both follow it, so they cannot drift apart.
+  projList.addEventListener('click', e => {
+    const btn = e.target.closest('.proj-header');
+    if (!btn) return;
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    document.getElementById(btn.getAttribute('aria-controls')).classList.toggle('open', !open);
+  });
 
   // Project filter
+  const filterStatus = document.getElementById('filter-status');
   document.getElementById('filters').addEventListener('click', e => {
     const btn = e.target.closest('.filter-btn');
     if (!btn) return;
     const filter = btn.dataset.filter;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      const on = b === btn;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
     let visible = 0;
-    document.querySelectorAll('#proj-list .proj-row').forEach(row => {
+    projList.querySelectorAll('.proj-row').forEach(row => {
       const show = filter === 'all' || row.dataset.cat === filter;
-      row.style.display = show ? '' : 'none';
+      row.hidden = !show;
       if (show) {
         visible++;
         row.querySelector('.proj-num').textContent = String(visible).padStart(2, '0');
       }
     });
+    filterStatus.textContent =
+      `${visible} ${visible === 1 ? 'project' : 'projects'} shown — ${btn.textContent.trim()}`;
   });
 
   // Nav active via IntersectionObserver
