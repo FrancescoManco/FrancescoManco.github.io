@@ -49,6 +49,22 @@
     --f-display: 'Archivo', system-ui, sans-serif;
     --f-body:    'Manrope', system-ui, sans-serif;
     --f-mono:    'JetBrains Mono', monospace;
+
+    /* Motion. Confident deceleration, no bounce — the surface is an
+       instrument, not a toy. Exits run faster than entrances. */
+    --ease:   cubic-bezier(0.16, 1, 0.3, 1);
+    --t-feed: 140ms;   /* immediate feedback  */
+    --t-state: 240ms;  /* routine state change */
+    --t-move: 420ms;   /* layout / continuity  */
+    --t-focal: 820ms;  /* the authored entrance */
+  }
+
+  /* Drives the hero sweep: one interpolated value moves the scan line and
+     opens the headline's clip, so the two can never drift apart. */
+  @property --sweep {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 1;
   }
 
   body {
@@ -105,22 +121,6 @@
     white-space: nowrap;
   }
 
-  @keyframes riseIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: none; }
-  }
-
-  /* Motion pared back to a plain fade; colour transitions stay, since they
-     carry state feedback rather than movement. */
-  @media (prefers-reduced-motion: reduce) {
-    @keyframes riseIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-    .about-img-wrap img,
-    .proj-header { transition-property: none; }
-  }
-
   /* ── Shell ── */
   .shell { display: flex; align-items: flex-start; min-height: 100vh; min-height: 100dvh; }
 
@@ -156,8 +156,22 @@
     line-height: 1.7;
   }
 
-  /* Rail nav */
-  .rail-nav { margin-top: 44px; display: flex; flex-direction: column; gap: 0; }
+  /* Rail nav. A gold mark rides the margin to the current section — position
+     is carried continuously instead of blinking between two states. */
+  .rail-nav { margin-top: 44px; display: flex; flex-direction: column; gap: 0; position: relative; }
+  .rail-marker {
+    position: absolute;
+    left: -16px;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    background: var(--gold);
+    transform-origin: top;
+    transform: translateY(var(--m-y, 0)) scaleY(var(--m-h, 0));
+    transition: transform var(--t-move) var(--ease), opacity var(--t-state);
+    opacity: 0;
+  }
+  .rail-marker.on { opacity: 1; }
   .rail-nav a {
     display: flex;
     align-items: center;
@@ -171,7 +185,8 @@
     transition: color .18s;
   }
   .rail-nav a:hover { color: var(--fg); }
-  .rail-nav a.active { color: var(--gold); padding-left: 6px; }
+  /* The marker now carries position, so the active row no longer jumps */
+  .rail-nav a.active { color: var(--gold); }
   .rail-nav a.active .rail-n { color: var(--gold); }
   .rail-n {
     font-family: var(--f-mono);
@@ -254,7 +269,41 @@
     margin: 0;
   }
 
-  /* ── Hero ── */
+  /* ── Hero: the authored entrance ──
+     A gold hairline crosses the headline and the words resolve behind it,
+     the way a plotter lays down a line. Default state is fully revealed, so
+     nothing here can hide the page if the animation never runs. */
+  .hero-reveal {
+    position: relative;
+    --sweep: 1;
+    animation: sweep var(--t-focal) var(--ease) 120ms both;
+  }
+  .hero-reveal .hero-hl {
+    clip-path: inset(0 calc((1 - var(--sweep)) * 100%) 0 0);
+  }
+  .hero-reveal::after {
+    content: '';
+    position: absolute;
+    top: -.06em;
+    bottom: -.06em;
+    left: 0;
+    width: 1px;
+    background: var(--gold);
+    transform: translateX(calc(var(--sweep) * var(--hl-w, 0px)));
+    animation: scanFade var(--t-focal) var(--ease) 120ms both;
+  }
+  @keyframes sweep {
+    from { --sweep: 0; }
+    to   { --sweep: 1; }
+  }
+  /* The line exists only while it is travelling */
+  @keyframes scanFade {
+    0%   { opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
   .hero-kicker {
     font-family: var(--f-mono);
     font-size: 12px;
@@ -262,6 +311,13 @@
     text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 32px;
+    animation: draw 460ms var(--ease) both;
+  }
+  /* Same gesture as the sweep, so the hero reads as one pass rather than
+     three unrelated entrances */
+  @keyframes draw {
+    from { clip-path: inset(0 100% 0 0); }
+    to   { clip-path: inset(0 0 0 0); }
   }
   .hero-hl {
     margin: 0;
@@ -293,6 +349,9 @@
     gap: 0;
     border: 1px solid var(--rule);
     max-width: fit-content;
+    /* Drawn as one unit, frame included — animating the cells alone left an
+       empty bordered box sitting on screen while they waited their turn. */
+    animation: draw 520ms var(--ease) 620ms both;
   }
   .hero-meta-item {
     padding: 14px 24px;
@@ -369,12 +428,28 @@
   .tag-gold { border-color: var(--gold-dim); color: var(--gold); }
 
   /* ── Research ── */
+  /* The publication is the credibility anchor: it gets the one entrance in
+     the page body, and it is the same drawn-rule gesture as the hero. */
   .pub-card {
+    position: relative;
     border: 1px solid var(--rule-soft);
     background: var(--bg-card);
     padding: 44px 48px;
     max-width: 860px;
   }
+  .pub-card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 700ms var(--ease);
+  }
+  .pub-card.drawn::before { transform: scaleX(1); }
   .pub-venue {
     font-family: var(--f-mono);
     font-size: 12px;
@@ -496,15 +571,46 @@
   /* Glyph derives from the button's own state, so it cannot fall out of sync */
   .proj-header[aria-expanded="false"] .proj-sign::before { content: '+'; }
   .proj-header[aria-expanded="true"]  .proj-sign::before { content: '\2212'; }
+  /* Expands by animating the grid track rather than height, so the row grows
+     to its natural size with no measurement and no layout-property tween.
+     visibility keeps the collapsed link out of the tab order. */
   .proj-body {
-    display: none;
-    padding: 0 6px 28px 76px;
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition:
+      grid-template-rows var(--t-state) var(--ease),
+      visibility 0s linear var(--t-state);
+  }
+  .proj-body.open {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition:
+      grid-template-rows var(--t-move) var(--ease),
+      visibility 0s;
+  }
+  /* The grid item itself carries no padding: padding on a 0fr item survives
+     min-height:0 and would hold every collapsed row open by its own inset. */
+  .proj-body-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+  .proj-body-grid {
+    display: grid;
     grid-template-columns: 1fr auto;
     gap: 28px;
     align-items: end;
-    animation: riseIn .3s ease-out;
+    padding: 0 6px 28px 76px;
   }
-  .proj-body.open { display: grid; }
+  /* Copy resolves just after the container has made room for it */
+  .proj-body-grid > * {
+    opacity: 0;
+    transition: opacity var(--t-feed) linear;
+  }
+  .proj-body.open .proj-body-grid > * {
+    opacity: 1;
+    transition: opacity var(--t-state) var(--ease) 120ms;
+  }
   .proj-desc {
     margin: 0;
     max-width: 60ch;
@@ -700,7 +806,7 @@
     .cap-cell:last-child { grid-column: auto; }
     .traj-row { grid-template-columns: 1fr; gap: 6px; }
     .traj-period { padding-top: 0; }
-    .proj-body { padding-left: 6px; grid-template-columns: 1fr; }
+    .proj-body-grid { padding-left: 6px; grid-template-columns: 1fr; }
     .hero-meta { flex-direction: column; max-width: 100%; }
     .hero-meta-item { border-right: none; border-bottom: 1px solid var(--rule); width: 100%; }
     .hero-meta-item:last-child { border-bottom: none; }
@@ -718,6 +824,26 @@
     .filter-btn { min-height: 44px; }
     .proj-link { min-height: 44px; display: inline-flex; align-items: center; }
   }
+
+  /* Reduced motion: travel and reveal are removed, state feedback is kept.
+     Every element lands in its final, fully visible position — nothing here
+     depends on an animation having run. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-reveal,
+    .hero-reveal::after,
+    .hero-kicker,
+    .hero-meta { animation: none; }
+    .hero-reveal .hero-hl { clip-path: none; }
+    .hero-reveal::after { display: none; }
+    .pub-card::before { transition: none; }
+    .rail-marker { transition: opacity var(--t-state); }
+    .proj-body,
+    .proj-body.open { transition-property: visibility; }
+    .proj-body-grid > *,
+    .proj-body.open .proj-body-grid > * { transition: opacity var(--t-feed) linear; }
+    .about-img-wrap img,
+    .proj-header { transition-property: none; }
+  }
 </style>
 </head>
 <body>
@@ -734,6 +860,7 @@
     </div>
 
     <nav class="rail-nav" aria-label="Sections">
+      <span class="rail-marker" aria-hidden="true"></span>
       <a href="#about"        data-nav="about">       <span class="rail-n">01</span>About</a>
       <a href="#trajectory"   data-nav="trajectory">  <span class="rail-n">02</span>Trajectory</a>
       <a href="#research"     data-nav="research">    <span class="rail-n">03</span>Research</a>
@@ -760,7 +887,9 @@
     <section>
       <div class="pad-hero">
         <div class="hero-kicker">Agentic AI Systems · RAG · AWS Bedrock · Computer Vision · NLP</div>
-        <h1 class="hero-hl">Frontier <em>research</em> that ships.</h1>
+        <div class="hero-reveal">
+          <h1 class="hero-hl">Frontier <em>research</em> that ships.</h1>
+        </div>
         <p class="hero-body">I build production AI systems at the intersection of multi-agent architectures, retrieval-augmented generation and cloud infrastructure — from published research on adaptive agentic models to deployed MarTech solutions on AWS.</p>
         <div class="hero-meta">
           <div class="hero-meta-item"><strong>MSc</strong>110/110 cum laude</div>
@@ -903,10 +1032,15 @@
               </button>
             </h3>
             <section class="proj-body open" id="proj-body-01" aria-labelledby="proj-btn-01">
-              <div>
-                <p class="proj-desc">Production multi-agent system for Instagram trend intelligence and social content generation. Orchestrates scraping pipelines (Apify), LLM agents on AWS Bedrock/AgentCore, brand context via Notion MCP and a Streamlit frontend with real-time SSE streaming. Data persistence on Supabase with multi-tenant isolation.</p>
-                <div class="proj-tech">
-                  <span class="tech-tag">AWS Bedrock</span><span class="tech-tag">AgentCore</span><span class="tech-tag">Apify</span><span class="tech-tag">Streamlit</span><span class="tech-tag">Supabase</span><span class="tech-tag">Notion MCP</span><span class="tech-tag">SSE</span>
+              <div class="proj-body-inner">
+                <div class="proj-body-grid">
+                  <div>
+                    <p class="proj-desc">Production multi-agent system for Instagram trend intelligence and social content generation. Orchestrates scraping pipelines (Apify), LLM agents on AWS Bedrock/AgentCore, brand context via Notion MCP and a Streamlit frontend with real-time SSE streaming. Data persistence on Supabase with multi-tenant isolation.</p>
+                    <div class="proj-tech">
+                      <span class="tech-tag">AWS Bedrock</span><span class="tech-tag">AgentCore</span><span class="tech-tag">Apify</span><span class="tech-tag">Streamlit</span><span class="tech-tag">Supabase</span><span class="tech-tag">Notion MCP</span><span class="tech-tag">SSE</span>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </section>
@@ -924,10 +1058,15 @@
               </button>
             </h3>
             <section class="proj-body" id="proj-body-02" aria-labelledby="proj-btn-02">
-              <div>
-                <p class="proj-desc">On-premise retrieval-augmented generation system for querying Italian fiscal regulations (Normattiva open data). Runs entirely local: Qwen2.5 via Ollama, BAAI/bge-m3 embeddings, Qdrant vector store, LlamaIndex orchestration, FastAPI backend and Streamlit UI. Zero cloud dependency by design.</p>
-                <div class="proj-tech">
-                  <span class="tech-tag">Ollama</span><span class="tech-tag">Qwen2.5</span><span class="tech-tag">BAAI/bge-m3</span><span class="tech-tag">Qdrant</span><span class="tech-tag">LlamaIndex</span><span class="tech-tag">FastAPI</span><span class="tech-tag">Streamlit</span>
+              <div class="proj-body-inner">
+                <div class="proj-body-grid">
+                  <div>
+                    <p class="proj-desc">On-premise retrieval-augmented generation system for querying Italian fiscal regulations (Normattiva open data). Runs entirely local: Qwen2.5 via Ollama, BAAI/bge-m3 embeddings, Qdrant vector store, LlamaIndex orchestration, FastAPI backend and Streamlit UI. Zero cloud dependency by design.</p>
+                    <div class="proj-tech">
+                      <span class="tech-tag">Ollama</span><span class="tech-tag">Qwen2.5</span><span class="tech-tag">BAAI/bge-m3</span><span class="tech-tag">Qdrant</span><span class="tech-tag">LlamaIndex</span><span class="tech-tag">FastAPI</span><span class="tech-tag">Streamlit</span>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </section>
@@ -945,10 +1084,15 @@
               </button>
             </h3>
             <section class="proj-body" id="proj-body-03" aria-labelledby="proj-btn-03">
-              <div>
-                <p class="proj-desc">Research and production system combining unsupervised clustering (K-Prototypes with soft assignment) and LLM-driven itinerary generation for regional tourism in Puglia. Companion MarTech platform on AWS Medallion architecture with RFM segmentation, CLV modeling, churn prediction and engagement scoring.</p>
-                <div class="proj-tech">
-                  <span class="tech-tag">K-Prototypes</span><span class="tech-tag">AWS S3</span><span class="tech-tag">Medallion Architecture</span><span class="tech-tag">LLM</span><span class="tech-tag">RFM</span><span class="tech-tag">Python</span>
+              <div class="proj-body-inner">
+                <div class="proj-body-grid">
+                  <div>
+                    <p class="proj-desc">Research and production system combining unsupervised clustering (K-Prototypes with soft assignment) and LLM-driven itinerary generation for regional tourism in Puglia. Companion MarTech platform on AWS Medallion architecture with RFM segmentation, CLV modeling, churn prediction and engagement scoring.</p>
+                    <div class="proj-tech">
+                      <span class="tech-tag">K-Prototypes</span><span class="tech-tag">AWS S3</span><span class="tech-tag">Medallion Architecture</span><span class="tech-tag">LLM</span><span class="tech-tag">RFM</span><span class="tech-tag">Python</span>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </section>
@@ -966,13 +1110,18 @@
               </button>
             </h3>
             <section class="proj-body" id="proj-body-04" aria-labelledby="proj-btn-04">
-              <div>
-                <p class="proj-desc">Advanced multi-agent AI system built with LangChain and LangGraph featuring persistent memory and adaptive learning. The architecture (published at ACM UMAP '25) introduces a dual-hemisphere design: a subjective hemisphere that models user preferences via LoRA fine-tuning, DPO and synthetic data generation.</p>
-                <div class="proj-tech">
-                  <span class="tech-tag">LLMs</span><span class="tech-tag">RAG</span><span class="tech-tag">Fine-tuning</span><span class="tech-tag">LangChain</span><span class="tech-tag">LangGraph</span><span class="tech-tag">DPO</span>
+              <div class="proj-body-inner">
+                <div class="proj-body-grid">
+                  <div>
+                    <p class="proj-desc">Advanced multi-agent AI system built with LangChain and LangGraph featuring persistent memory and adaptive learning. The architecture (published at ACM UMAP '25) introduces a dual-hemisphere design: a subjective hemisphere that models user preferences via LoRA fine-tuning, DPO and synthetic data generation.</p>
+                    <div class="proj-tech">
+                      <span class="tech-tag">LLMs</span><span class="tech-tag">RAG</span><span class="tech-tag">Fine-tuning</span><span class="tech-tag">LangChain</span><span class="tech-tag">LangGraph</span><span class="tech-tag">DPO</span>
+                    </div>
+                  </div>
+                  <a href="https://github.com/FrancescoManco/JARVIS" target="_blank" rel="noopener noreferrer" class="proj-link">View code ↗</a>
+
                 </div>
               </div>
-              <a href="https://github.com/FrancescoManco/JARVIS" target="_blank" rel="noopener noreferrer" class="proj-link">View code ↗</a>
             </section>
           </div>
 
@@ -988,13 +1137,18 @@
               </button>
             </h3>
             <section class="proj-body" id="proj-body-05" aria-labelledby="proj-btn-05">
-              <div>
-                <p class="proj-desc">Computer-vision system generating descriptive captions for differences between artwork images. Leverages CLIP and transformer architectures to understand visual change and express it in natural language — combining retrieval and generation in a single multimodal pipeline.</p>
-                <div class="proj-tech">
-                  <span class="tech-tag">CLIP</span><span class="tech-tag">Transformers</span><span class="tech-tag">PyTorch</span>
+              <div class="proj-body-inner">
+                <div class="proj-body-grid">
+                  <div>
+                    <p class="proj-desc">Computer-vision system generating descriptive captions for differences between artwork images. Leverages CLIP and transformer architectures to understand visual change and express it in natural language — combining retrieval and generation in a single multimodal pipeline.</p>
+                    <div class="proj-tech">
+                      <span class="tech-tag">CLIP</span><span class="tech-tag">Transformers</span><span class="tech-tag">PyTorch</span>
+                    </div>
+                  </div>
+                  <a href="https://github.com/FrancescoManco/Image-Difference-Captioning" target="_blank" rel="noopener noreferrer" class="proj-link">View code ↗</a>
+
                 </div>
               </div>
-              <a href="https://github.com/FrancescoManco/Image-Difference-Captioning" target="_blank" rel="noopener noreferrer" class="proj-link">View code ↗</a>
             </section>
           </div>
 
@@ -1010,13 +1164,18 @@
               </button>
             </h3>
             <section class="proj-body" id="proj-body-06" aria-labelledby="proj-btn-06">
-              <div>
-                <p class="proj-desc">Hybrid quantum-classical model for clustering on MNIST, using quantum circuits to enhance metric learning for image representation. Explores the practical boundary between quantum advantage and classical performance on real datasets.</p>
-                <div class="proj-tech">
-                  <span class="tech-tag">Quantum ML</span><span class="tech-tag">Qiskit</span><span class="tech-tag">PyTorch</span>
+              <div class="proj-body-inner">
+                <div class="proj-body-grid">
+                  <div>
+                    <p class="proj-desc">Hybrid quantum-classical model for clustering on MNIST, using quantum circuits to enhance metric learning for image representation. Explores the practical boundary between quantum advantage and classical performance on real datasets.</p>
+                    <div class="proj-tech">
+                      <span class="tech-tag">Quantum ML</span><span class="tech-tag">Qiskit</span><span class="tech-tag">PyTorch</span>
+                    </div>
+                  </div>
+                  <a href="https://github.com/FrancescoManco/QuantumMetricLearning" target="_blank" rel="noopener noreferrer" class="proj-link">View code ↗</a>
+
                 </div>
               </div>
-              <a href="https://github.com/FrancescoManco/QuantumMetricLearning" target="_blank" rel="noopener noreferrer" class="proj-link">View code ↗</a>
             </section>
           </div>
 
@@ -1120,8 +1279,12 @@
     document.getElementById(btn.getAttribute('aria-controls')).classList.toggle('open', !open);
   });
 
-  // Project filter
+  // Project filter. Rows that survive a filter change travel to their new
+  // position (FLIP) instead of teleporting, so the list reads as one list
+  // being re-composed rather than six unrelated rows blinking.
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const filterStatus = document.getElementById('filter-status');
+
   document.getElementById('filters').addEventListener('click', e => {
     const btn = e.target.closest('.filter-btn');
     if (!btn) return;
@@ -1131,8 +1294,13 @@
       b.classList.toggle('active', on);
       b.setAttribute('aria-pressed', String(on));
     });
+
+    const rows = [...projList.querySelectorAll('.proj-row')];
+    // First: where everything sits, and what was on screen
+    const first = new Map(rows.map(r => [r, { top: r.getBoundingClientRect().top, shown: !r.hidden }]));
+
     let visible = 0;
-    projList.querySelectorAll('.proj-row').forEach(row => {
+    rows.forEach(row => {
       const show = filter === 'all' || row.dataset.cat === filter;
       row.hidden = !show;
       if (show) {
@@ -1140,18 +1308,81 @@
         row.querySelector('.proj-num').textContent = String(visible).padStart(2, '0');
       }
     });
+
     filterStatus.textContent =
       `${visible} ${visible === 1 ? 'project' : 'projects'} shown — ${btn.textContent.trim()}`;
+
+    if (reduced.matches) return;
+
+    // Last, Invert, Play
+    rows.forEach(row => {
+      if (row.hidden) return;
+      const prev = first.get(row);
+      if (!prev.shown) {
+        row.animate({ opacity: [0, 1] }, { duration: 240, easing: 'ease-out' });
+        return;
+      }
+      const delta = prev.top - row.getBoundingClientRect().top;
+      if (!delta) return;
+      row.animate(
+        { transform: [`translateY(${delta}px)`, 'translateY(0)'] },
+        { duration: 420, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+      );
+    });
   });
 
-  // Nav active via IntersectionObserver
+  // Nav active via IntersectionObserver, with a marker that rides the margin
   const navLinks = Array.from(document.querySelectorAll('[data-nav]'));
-  const setActive = id => navLinks.forEach(l => l.classList.toggle('active', l.dataset.nav === id));
+  const marker = document.querySelector('.rail-marker');
+  const placeMarker = link => {
+    marker.style.setProperty('--m-y', link.offsetTop + 'px');
+    marker.style.setProperty('--m-h', link.offsetHeight);
+    marker.classList.add('on');
+  };
+  const setActive = id => {
+    navLinks.forEach(l => l.classList.toggle('active', l.dataset.nav === id));
+    const active = navLinks.find(l => l.dataset.nav === id);
+    if (active) placeMarker(active);
+  };
   const io = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.dataset.sec); }),
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) { setActive(e.target.dataset.sec); drawPubIfReached(); }
+    }),
     { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
   );
   document.querySelectorAll('[data-sec]').forEach(s => io.observe(s));
+
+  // The hero scan line travels the headline's width, so it has to be measured
+  const heroReveal = document.querySelector('.hero-reveal');
+  const heroHl = heroReveal.querySelector('.hero-hl');
+  const measureHero = () =>
+    heroReveal.style.setProperty('--hl-w', heroHl.getBoundingClientRect().width + 'px');
+  measureHero();
+  if (document.fonts) document.fonts.ready.then(measureHero);
+
+  // Draw the publication rule once, the first time the card is reached.
+  // A nav jump can clear the card without crossing any threshold, so the
+  // section observer above re-checks position rather than relying on ratio.
+  const pubCard = document.querySelector('.pub-card');
+  function drawPubIfReached() {
+    if (pubCard.classList.contains('drawn')) return;
+    if (pubCard.getBoundingClientRect().top > innerHeight * 0.65) return;
+    pubCard.classList.add('drawn');
+    pubIo.disconnect();
+  }
+  const pubIo = new IntersectionObserver(drawPubIfReached, { threshold: 0.35 });
+  pubIo.observe(pubCard);
+
+  // Keep measured values honest across viewport and orientation changes
+  let resizeT;
+  addEventListener('resize', () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(() => {
+      measureHero();
+      const active = navLinks.find(l => l.classList.contains('active'));
+      if (active) placeMarker(active);
+    }, 120);
+  });
 </script>
 
 </body>
