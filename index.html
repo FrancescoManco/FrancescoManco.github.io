@@ -148,6 +148,7 @@
     color: var(--fg);
     line-height: 1.1;
   }
+  .rail-sep { display: none; }
   .rail-role {
     margin-top: 10px;
     font-family: var(--f-mono);
@@ -832,6 +833,109 @@
     .proj-link { min-height: 44px; display: inline-flex; align-items: center; }
   }
 
+  /* ── Phones and small tablets ──
+     The rail becomes a compact sticky bar: wordmark, then a swipeable section
+     strip. The CV and profile links live in the Contact section, so the rail
+     footer is dropped rather than squeezed in. Declared after the pointer
+     block so its link padding wins on touch screens. */
+  @media (max-width: 960px) {
+    html { -webkit-text-size-adjust: 100%; scroll-padding-top: var(--rail-h, 104px); }
+    .rail {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      flex: 0 0 auto;
+      padding: 12px max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left));
+    }
+    .rail > div:first-child {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .rail-wordmark { font-size: 17px; white-space: nowrap; }
+    .rail-wordmark br { display: none; }
+    .rail-role { margin: 0; font-size: 11px; line-height: 1.4; text-align: right; white-space: nowrap; }
+    .rail-role br { display: none; }
+    .rail-sep { display: inline; }
+    .rail-nav {
+      margin: 6px calc(-1 * max(20px, env(safe-area-inset-right))) 0 calc(-1 * max(20px, env(safe-area-inset-left)));
+      padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left));
+      flex-direction: row;
+      gap: 4px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .rail-nav::-webkit-scrollbar { display: none; }
+    .rail-marker, .rail-n, .rail-bottom { display: none; }
+    .rail-nav a {
+      flex: 0 0 auto;
+      padding: 13px 12px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+    }
+    .rail-nav a:first-of-type { margin-left: -12px; }
+    .rail-nav a.active { border-bottom-color: var(--gold); }
+  }
+  @media (max-width: 960px) and (max-height: 500px) {
+    .rail { position: static; }
+    html { scroll-padding-top: 0; }
+  }
+  @media (max-width: 520px) {
+    .rail-role { display: none; }
+  }
+  @media (max-width: 600px) {
+    .pad, .pad-contact {
+      padding-top: 48px;
+      padding-bottom: 48px;
+      padding-left: max(20px, env(safe-area-inset-left));
+      padding-right: max(20px, env(safe-area-inset-right));
+    }
+    .pad-hero {
+      padding-top: 40px;
+      padding-bottom: 48px;
+      padding-left: max(20px, env(safe-area-inset-left));
+      padding-right: max(20px, env(safe-area-inset-right));
+    }
+    .sec-mark { margin-bottom: 32px; }
+    .hero-kicker { font-size: 11px; letter-spacing: .14em; line-height: 1.7; margin-bottom: 22px; }
+    .hero-hl { font-size: clamp(38px, 11.5vw, 48px); }
+    .hero-body { font-size: 16px; line-height: 1.65; margin-top: 22px; }
+    .hero-meta { margin-top: 32px; }
+    .hero-meta-item { padding: 12px 18px; }
+    .about-grid { gap: 28px; }
+    .about-img-wrap { max-width: 240px; }
+    .about-lede { font-size: 20px; line-height: 1.4; }
+    .traj-row { padding-block: 24px; }
+    .pub-card { padding: 24px 20px; }
+    /* Number and title share a row; the category drops beneath the title
+       instead of fighting it for width */
+    .proj-header {
+      grid-template-columns: 26px minmax(0, 1fr);
+      gap: 4px 10px;
+      align-items: start;
+      padding: 20px 0;
+    }
+    .proj-name { font-size: 20px; }
+    .proj-cat-label {
+      grid-column: 2;
+      justify-content: space-between;
+      margin-top: 6px;
+      white-space: normal;
+      text-align: left;
+    }
+    .proj-body-grid { padding-left: 0; }
+    .cap-cell { padding: 24px 20px; }
+    .cap-label { margin-bottom: 14px; }
+    .contact-hl { font-size: clamp(32px, 10vw, 42px); }
+    .contact-email { overflow-wrap: anywhere; }
+    .contact-cards { margin-top: 32px; }
+    .contact-card { min-width: 0; flex-basis: 100%; padding: 18px 20px; }
+    .contact-footer { margin-top: 44px; padding-bottom: env(safe-area-inset-bottom); }
+  }
+
   /* Reduced motion: travel and reveal are removed, state feedback is kept.
      Every element lands in its final, fully visible position — nothing here
      depends on an animation having run. */
@@ -862,8 +966,8 @@
   <!-- ── RAIL ── -->
   <aside class="rail">
     <div>
-      <div class="rail-wordmark">Francesco<br>Manco</div>
-      <div class="rail-role">AI/ML Engineer · R&amp;D<br>Bari, IT</div>
+      <div class="rail-wordmark">Francesco <br>Manco</div>
+      <div class="rail-role">AI/ML Engineer · R&amp;D<span class="rail-sep"> · </span><br>Bari, IT</div>
     </div>
 
     <nav class="rail-nav" aria-label="Sections">
@@ -1269,10 +1373,25 @@
     marker.style.setProperty('--m-h', link.offsetHeight);
     marker.classList.add('on');
   };
+  // On phones the rail is a horizontal strip: keep the current link in view.
+  // Scrolls the strip itself, never the page.
+  const railEl = document.querySelector('.rail');
+  const railNav = document.querySelector('.rail-nav');
+  const narrow = matchMedia('(max-width: 960px)');
+  const syncStrip = link => {
+    if (!narrow.matches) return;
+    railNav.scrollTo({
+      left: link.offsetLeft - (railNav.clientWidth - link.offsetWidth) / 2,
+      behavior: reduced.matches ? 'auto' : 'smooth'
+    });
+  };
+  const measureRail = () =>
+    document.documentElement.style.setProperty('--rail-h', railEl.offsetHeight + 'px');
+  measureRail();
   const setActive = id => {
     navLinks.forEach(l => l.classList.toggle('active', l.dataset.nav === id));
     const active = navLinks.find(l => l.dataset.nav === id);
-    if (active) placeMarker(active);
+    if (active) { placeMarker(active); syncStrip(active); }
   };
   const io = new IntersectionObserver(
     entries => entries.forEach(e => {
@@ -1309,6 +1428,7 @@
     clearTimeout(resizeT);
     resizeT = setTimeout(() => {
       measureHero();
+      measureRail();
       const active = navLinks.find(l => l.classList.contains('active'));
       if (active) placeMarker(active);
     }, 120);
